@@ -97,6 +97,10 @@
 		A4D08E382C17004400F2CD57 /* FriendViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E372C17004400F2CD57 /* FriendViewModelTests.swift */; };
 		A4D08E3A2C17005100F2CD57 /* UserViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E392C17005100F2CD57 /* UserViewModelTests.swift */; };
 		A4D08E3C2C174A1E00F2CD57 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */; };
+		A4D08E3F2C18108800F2CD57 /* FriendUserHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */; };
+		A4D08E412C1810BB00F2CD57 /* FriendInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */; };
+		A4D08E432C1810F000F2CD57 /* FreindTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E422C1810F000F2CD57 /* FreindTabHeader.swift */; };
+		A4D08E452C18119F00F2CD57 /* FriendEmptyFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +207,10 @@
 		A4D08E372C17004400F2CD57 /* FriendViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModelTests.swift; sourceTree = "<group>"; };
 		A4D08E392C17005100F2CD57 /* UserViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTests.swift; sourceTree = "<group>"; };
 		A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
+		A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendUserHeader.swift; sourceTree = "<group>"; };
+		A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteCell.swift; sourceTree = "<group>"; };
+		A4D08E422C1810F000F2CD57 /* FreindTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreindTabHeader.swift; sourceTree = "<group>"; };
+		A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendEmptyFooter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,10 +259,10 @@
 				A47285C82C13FC2B003DDC64 /* LaunchScreen.storyboard */,
 				A47285CB2C13FC2B003DDC64 /* Info.plist */,
 				A47286442C14387E003DDC64 /* Resources */,
-				A47285D32C13FD60003DDC64 /* Controllers */,
-				A47285D42C13FD8F003DDC64 /* Views */,
-				A47285D22C13FD50003DDC64 /* ViewModels */,
 				A47285D12C13FD42003DDC64 /* Models */,
+				A47285D22C13FD50003DDC64 /* ViewModels */,
+				A47285D42C13FD8F003DDC64 /* Views */,
+				A47285D32C13FD60003DDC64 /* Controllers */,
 				A47285D52C13FDA8003DDC64 /* Services */,
 				A47286202C13FFE7003DDC64 /* Utilities */,
 				A472863D2C1431A0003DDC64 /* Helpers */,
@@ -308,6 +316,7 @@
 		A47285D42C13FD8F003DDC64 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A4D08E3D2C180FF800F2CD57 /* Friend */,
 				A4D08DF02C15730C00F2CD57 /* Cells */,
 				A47286232C1402E0003DDC64 /* MainTabBar.swift */,
 				A4D08DF52C1598E600F2CD57 /* HomeNavigationView.swift */,
@@ -514,6 +523,17 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		A4D08E3D2C180FF800F2CD57 /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */,
+				A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */,
+				A4D08E422C1810F000F2CD57 /* FreindTabHeader.swift */,
+				A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */,
+			);
+			path = Friend;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -620,6 +640,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D08E452C18119F00F2CD57 /* FriendEmptyFooter.swift in Sources */,
+				A4D08E412C1810BB00F2CD57 /* FriendInviteCell.swift in Sources */,
 				A472862E2C140DC2003DDC64 /* FontFactory.swift in Sources */,
 				A4D08E122C15FC0E00F2CD57 /* DownloadImageViewModel.swift in Sources */,
 				A4D08DC12C146C2D00F2CD57 /* AmountModels.swift in Sources */,
@@ -647,6 +669,8 @@
 				A4D08E3C2C174A1E00F2CD57 /* FriendViewController.swift in Sources */,
 				A4D08DD72C1479E300F2CD57 /* FavoriteViewModel.swift in Sources */,
 				A4D08E0E2C15F82200F2CD57 /* ImageLoader.swift in Sources */,
+				A4D08E432C1810F000F2CD57 /* FreindTabHeader.swift in Sources */,
+				A4D08E3F2C18108800F2CD57 /* FriendUserHeader.swift in Sources */,
 				A4D08DC72C146F6B00F2CD57 /* AmountDigitalParser.swift in Sources */,
 				A4D08E0A2C15F33300F2CD57 /* HomeAdModel.swift in Sources */,
 				A4D08DEF2C155C9200F2CD57 /* ColorFactory.swift in Sources */,

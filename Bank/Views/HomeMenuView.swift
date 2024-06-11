@@ -76,7 +76,7 @@ class MenuView: UIView {
     
     private func setupViews() {
         let btnIcon = UIFactory.createImageButton(name: "", corner: 28*scale)
-        let lbTitle = UIFactory.createLabel(size: 14*scale, text: "", color: ColorEnum.systemGray7.color, font: .SFProTextRegular)
+        let lbTitle = UIFactory.createLabel(size: 14*scale, text: "", color: .blue, font: .SFProTextRegular)
         
         self.btnIcon = btnIcon
         self.lbTitle = lbTitle

@@ -22,7 +22,7 @@ class CustomNavigationView: UIView {
     }()
     
     private lazy var lbTitle: UILabel = {
-        let lb = UIFactory.createLabel(size: 18*scale, text: "Notificaiton".localized(), color: ColorEnum.systemGray10.color, font: .SFProTextMedium)
+        let lb = UIFactory.createLabel(size: 18*scale, text: "Notificaiton".localized(), color: .red, font: .SFProTextMedium)
         lb.textAlignment = .center
         return lb
     }()

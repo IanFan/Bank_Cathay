@@ -30,10 +30,10 @@ class NotificationCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        let vStatus = UIFactory.createView(color: ColorEnum.localOrange1.color, corner: 6*scale)
-        let lbTitle = UIFactory.createLabel(size: 18*scale, text: "", color: ColorEnum.systemGray10.color, font: .SFProTextMedium)
-        let lbTime = UIFactory.createLabel(size: 14*scale, text: "", color: ColorEnum.systemGray10.color, font: .SFProTextRegular)
-        let lbMessage = UIFactory.createLabel(size: 16*scale, text: "", color: ColorEnum.localBattleshipGrey.color, font: .SFProTextRegular)
+        let vStatus = UIFactory.createView(color: .blue, corner: 6*scale)
+        let lbTitle = UIFactory.createLabel(size: 18*scale, text: "", color: .blue, font: .SFProTextMedium)
+        let lbTime = UIFactory.createLabel(size: 14*scale, text: "", color: .blue, font: .SFProTextRegular)
+        let lbMessage = UIFactory.createLabel(size: 16*scale, text: "", color: .blue, font: .SFProTextRegular)
         
         lbMessage.numberOfLines = 2
         

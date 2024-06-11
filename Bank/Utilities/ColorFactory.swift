@@ -9,35 +9,39 @@ import Foundation
 import UIKit
 
 enum ColorEnum {
-    case localGray500
-    case localWhite1
-    case localWhite2
-    case localWhite3
-    case localWhite4
-    case localBattleshipGrey
-    case localOrange1
-    case systemGray4
-    case systemGray5
-    case systemGray6
-    case systemGray7
-    case systemGray8
-    case systemGray10
+    case appleGreen
+    case appleGreen40
+    case booger
+    case frogGreen
+    case black10
+    case brownGrey
+    case greyishBrown
+    case pinkishGrey
+    case steel
+    case steel12
+    case white
+    case white2
+    case white3
+    case softPink
+    case hotpink
 
     var color: UIColor {
         switch self {
-        case .localGray500: return UIColor(red: 136, green: 136, blue: 136)
-        case .localWhite1: return UIColor(red: 251, green: 251, blue: 251)
-        case .localWhite2: return UIColor(red: 250, green: 250, blue: 250)
-        case .localWhite3: return UIColor(red: 240, green: 240, blue: 240)
-        case .localWhite4: return UIColor(red: 220, green: 220, blue: 220)
-        case .localBattleshipGrey: return UIColor(red: 115, green: 116, blue: 126)
-        case .localOrange1: return UIColor(red: 255, green: 136, blue: 97)
-        case .systemGray4: return UIColor(red: 190, green: 190, blue: 190)
-        case .systemGray5: return UIColor(red: 136, green: 136, blue: 136)
-        case .systemGray6: return UIColor(red: 111, green: 111, blue: 111)
-        case .systemGray7: return UIColor(red: 85, green: 85, blue: 85)
-        case .systemGray8: return UIColor(red: 68, green: 68, blue: 68)
-        case .systemGray10: return UIColor(red: 26, green: 26, blue: 26)
+        case .appleGreen: return UIColor(red: 121, green: 196, blue: 27)
+        case .appleGreen40: return UIColor(red: 121, green: 196, blue: 27, alpha: 0.4)
+        case .booger: return UIColor(red: 166, green: 204, blue: 66)
+        case .frogGreen: return UIColor(red: 86, green: 179, blue: 11)
+        case .black10: return UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
+        case .brownGrey: return UIColor(red: 153, green: 153, blue: 153)
+        case .greyishBrown: return UIColor(red: 71, green: 71, blue: 71)
+        case .pinkishGrey: return UIColor(red: 201, green: 201, blue: 201)
+        case .steel: return UIColor(red: 142, green: 142, blue: 147)
+        case .steel12: return UIColor(red: 142, green: 142, blue: 147, alpha: 0.12)
+        case .white: return UIColor(red: 245, green: 245, blue: 245)
+        case .white2: return UIColor(red: 252, green: 252, blue: 252)
+        case .white3: return UIColor(red: 255, green: 255, blue: 255)
+        case .softPink: return UIColor(red: 249, green: 178, blue: 220)
+        case .hotpink: return UIColor(red: 236, green: 0, blue: 140)
         }
     }
 }

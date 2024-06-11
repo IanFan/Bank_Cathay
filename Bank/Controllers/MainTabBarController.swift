@@ -74,10 +74,10 @@ class MainTabBarController: UITabBarController {
             return vc
         } else {
             let vc = UIViewController()
-            vc.view.backgroundColor = ColorEnum.localWhite2.color
+            view.backgroundColor = ColorEnum.white3.color
             vc.tabBarItem = createTabBarItem(tabEnum: tabEnum)
             
-            let lb = UIFactory.createLabel(size: 18*scale, text: "View Controller: \(tabEnum)", color: ColorEnum.systemGray5.color, font: .SFProTextHeavy)
+            let lb = UIFactory.createLabel(size: 18*scale, text: "View Controller: \(tabEnum)", color: ColorEnum.brownGrey.color, font: .SFProTextHeavy)
             vc.view.addSubview(lb)
             NSLayoutConstraint.activate([
                 lb.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
@@ -89,7 +89,7 @@ class MainTabBarController: UITabBarController {
     
     private func createTabBarItem(tabEnum: MainTabEnum) -> UITabBarItem {
         let tabInfo = tabEnum.tabInfo
-        let titleStr = tabInfo.title
+//        let titleStr = tabInfo.title
         let imageName = tabInfo.imageName
         let selectedImageName = tabInfo.selectedImageName
         let tabTitleColorHexSelect: UIColor = .clear
@@ -121,12 +121,14 @@ class MainTabBarController: UITabBarController {
     private func updateTabBarAppearance() {
         let tabBarItemAppearance = UITabBarItemAppearance()
         
+        /*
         tabBarItemAppearance.selected.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: ColorEnum.localOrange1.color,
             .font : UIFont(name: FontEnum.SFProTextSemibold.rawValue, size: 12*scale) ?? UIFont.boldSystemFont(ofSize: 12*scale)]
         tabBarItemAppearance.normal.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: ColorEnum.systemGray7.color,
             .font : UIFont(name: FontEnum.SFProTextRegular.rawValue, size: 12*scale) ?? UIFont.systemFont(ofSize: 12*scale)]
+        */
         
         let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithDefaultBackground()

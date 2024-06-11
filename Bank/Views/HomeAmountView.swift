@@ -43,7 +43,7 @@ class HomeAmountView: UIView {
     
     private func setupViews() {
         let topContainer = UIFactory.createView(color: .clear)
-        let lbTitle = UIFactory.createLabel(size: 18*scale, text: "My Account Balance".localized(), color: ColorEnum.systemGray5.color, font: .SFProTextBold)
+        let lbTitle = UIFactory.createLabel(size: 18*scale, text: "My Account Balance".localized(), color: .blue, font: .SFProTextBold)
         let btnEye = UIFactory.createImageButton(name: "")
         let ivEye = UIFactory.createImage(name: "iconEye01On")
         
@@ -156,9 +156,9 @@ class HomeMoneyView: UIView {
     }
     
     private func setupViews() {
-        let lbCurr = UIFactory.createLabel(size: 16*scale, text: "", color: ColorEnum.systemGray7.color, font: .SFProTextRegular)
+        let lbCurr = UIFactory.createLabel(size: 16*scale, text: "", color: .blue, font: .SFProTextRegular)
         let vLoading = UIFactory.createView(color: .clear)
-        let lbBalance = UIFactory.createLabel(size: 24*scale, text: "", color: ColorEnum.systemGray8.color, font: .SFProTextMedium)
+        let lbBalance = UIFactory.createLabel(size: 24*scale, text: "", color: .blue, font: .SFProTextMedium)
         
         self.lbCurr = lbCurr
         self.vLoading = vLoading
@@ -168,7 +168,7 @@ class HomeMoneyView: UIView {
         addSubview(vLoading)
         addSubview(lbBalance)
         
-        UIFactory.addGradient(view: vLoading, colorStart: ColorEnum.localWhite3.color, colorEnd: ColorEnum.localWhite1.color, width: 327*scale, height: 24*scale, corner: 0, isLeftToRight: true)
+        UIFactory.addGradient(view: vLoading, colorStart: .blue, colorEnd: .blue, width: 327*scale, height: 24*scale, corner: 0, isLeftToRight: true)
         
         let margin = 24*scale
         NSLayoutConstraint.activate([

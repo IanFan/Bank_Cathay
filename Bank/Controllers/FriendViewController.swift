@@ -14,12 +14,9 @@ class FriendViewController: UIViewController {
     
     let scale: CGFloat = UIFactory.getScale()
     var requestFriendType: RequestFriendType = .NoFriend
+    var cv: UICollectionView!
     var refreshControl: UIRefreshControl!
-    var navigationView: HomeNavigationView!
-//    var amountView: HomeAmountView!
-//    var menuView: HomeMenuView!
-//    var favoriteView: HomeFavoriteView!
-//    var adView: HomeAdView!
+    var userHeader: FriendUserHeader?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -51,12 +48,43 @@ class FriendViewController: UIViewController {
         
         setupUI()
         
-        self.userViewModel.loadData(isRefresh: false)
-        self.friendViewModel.loadData(isRefresh: false, requestType: requestFriendType)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.userViewModel.loadData(isRefresh: false)
+            self.friendViewModel.loadData(isRefresh: false, requestType: self.requestFriendType)
+        }
     }
     
     func setupUI() {
-        view.backgroundColor = ColorEnum.localWhite2.color
+        view.backgroundColor = ColorEnum.white3.color
+        
+        // collectionView
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        cv.register(FriendInviteCell.self, forCellWithReuseIdentifier: FriendInviteCell.cellID)
+        cv.register(FriendUserHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FriendUserHeader.headerID)
+        cv.delegate = self
+        cv.dataSource = self
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.backgroundColor = .clear
+        view.addSubview(cv)
+        self.cv = cv
+        
+        // pull refresh
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = ColorEnum.greyishBrown.color
+        refreshControl.addTarget(self, action: #selector(refreshCollectionView(_:)), for: .valueChanged)
+        cv.refreshControl = refreshControl
+        self.refreshControl = refreshControl
+        
+        // layout
+        NSLayoutConstraint.activate([
+            cv.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cv.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            cv.topAnchor.constraint(equalTo: view.topAnchor),
+            cv.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
         /*
         
         
@@ -174,22 +202,106 @@ class FriendViewController: UIViewController {
     
 }
 
+extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in _: UICollectionView) -> Int {
+        // header User
+        // header Friend Tab
+        // footer Friend Empty
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return 0
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let obj = messages[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendInviteCell.cellID, for: indexPath) as! FriendInviteCell
+//        cell.setupWithItem(item: obj)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectSectionIndex = indexPath.section
+        let selectIndex = indexPath.item
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? NotificationCell, let obj: MessageModel = cell.message else {
+            return
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let section = indexPath.section
+        if section == 0 {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendUserHeader.headerID, for: indexPath) as! FriendUserHeader
+            header.backgroundColor = .randomColor
+            header.delegate = self
+            self.userHeader = header
+            return header
+        }
+        return UICollectionReusableView()
+    }
+}
+
+extension FriendViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let section = indexPath.section
+        let width = collectionView.frame.width
+        if section == 0 {
+            return CGSize(width: width, height: 20)
+        }
+        
+        let size = CGSize(width: width, height: 128 * scale)
+        return size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let width = collectionView.frame.width
+        if section == 0 {
+            return CGSize(width: width, height: 142*scale)
+        }
+        
+        let size = CGSize(width: width, height: 128 * scale)
+        return size
+    }
+}
+
 extension FriendViewController {
-    @objc func handleRefresh() {
+    @objc func refreshCollectionView(_ sender: UIRefreshControl) {
         self.userViewModel.loadData(isRefresh: true)
         self.friendViewModel.loadData(isRefresh: true, requestType: requestFriendType)
         
-        self.refreshControl?.endRefreshing()
+        sender.endRefreshing()
     }
 }
 
 extension FriendViewController: UserViewModelProtocol {
     func updateUserUI() {
-        
+        guard let item = userViewModel.getUserItem() else {
+            return
+        }
+        userHeader?.setupWithItem(item: item)
     }
 }
 
 extension FriendViewController: FriendViewModelProtocol {
     func updateFriendUI() {
     }
+}
+
+extension FriendViewController: FriendUserHeaderDelegate {
+    
 }

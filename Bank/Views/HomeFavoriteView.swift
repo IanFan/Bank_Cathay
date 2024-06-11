@@ -33,8 +33,8 @@ class HomeFavoriteView: UIView {
     
     private func setupViews() {
         let topContainer = UIFactory.createView(color: .clear)
-        let lbTitle = UIFactory.createLabel(size: 18*scale, text: "My Favorite".localized(), color: ColorEnum.systemGray5.color, font: .SFProTextHeavy)
-        let lbMore = UIFactory.createLabel(size: 16*scale, text: "More".localized(), color: ColorEnum.systemGray7.color, font: .SFProTextRegular)
+        let lbTitle = UIFactory.createLabel(size: 18*scale, text: "My Favorite".localized(), color: .blue, font: .SFProTextHeavy)
+        let lbMore = UIFactory.createLabel(size: 16*scale, text: "More".localized(), color: .blue, font: .SFProTextRegular)
         let ivMore = UIFactory.createImage(name: "iconArrow01Next")
         let btnMore = UIFactory.createImageButton(name: "")
         
@@ -166,7 +166,7 @@ class HomeFavoriteEmptyView: UIView {
     
     private func setupViews() {
         let ivIcon = UIFactory.createImage(name: "button00ElementScrollEmpty", corner: 28*scale)
-        let lbDes = UIFactory.createLabel(size: 14*scale, text: "You can add a favorite through the transfer or payment function.".localized(), color: ColorEnum.systemGray6.color, font: .SFProTextRegular)
+        let lbDes = UIFactory.createLabel(size: 14*scale, text: "You can add a favorite through the transfer or payment function.".localized(), color: .blue, font: .SFProTextRegular)
         
         self.ivIcon = ivIcon
         self.lbDes = lbDes

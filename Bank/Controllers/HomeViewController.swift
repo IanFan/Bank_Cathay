@@ -73,7 +73,7 @@ class HomeViewController: UIViewController {
     }
     
     func setupUI() {
-        view.backgroundColor = ColorEnum.localWhite2.color
+        view.backgroundColor = .blue
         
         // UIScrollView
         let scrollView = UIScrollView()
@@ -82,7 +82,7 @@ class HomeViewController: UIViewController {
         view.addSubview(scrollView)
         
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = ColorEnum.systemGray10.color
+        refreshControl.tintColor = .blue
         scrollView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         self.refreshControl = refreshControl

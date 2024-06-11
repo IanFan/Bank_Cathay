@@ -45,7 +45,7 @@ class NotificationViewController: UIViewController {
     }
     
     func setupUI() {
-        view.backgroundColor = ColorEnum.localWhite2.color
+        view.backgroundColor = .blue
         messageViewModel.delegate = self
         
         // navigation
@@ -67,7 +67,7 @@ class NotificationViewController: UIViewController {
         
         // pull refresh
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = ColorEnum.systemGray10.color
+        refreshControl.tintColor = .blue
         refreshControl.addTarget(self, action: #selector(refreshCollectionView(_:)), for: .valueChanged)
         cv.refreshControl = refreshControl
         self.refreshControl = refreshControl

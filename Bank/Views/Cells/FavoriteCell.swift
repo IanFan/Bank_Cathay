@@ -29,7 +29,7 @@ class FavoriteCell: UICollectionViewCell {
     
     func setupUI() {
         let ivIcon = UIFactory.createImage(name: "")
-        let lbTitle = UIFactory.createLabel(size: 12*scale, text: "", color: ColorEnum.systemGray6.color, font: .SFProTextRegular)
+        let lbTitle = UIFactory.createLabel(size: 12*scale, text: "", color: .blue, font: .SFProTextRegular)
         
         contentView.addSubview(ivIcon)
         contentView.addSubview(lbTitle)

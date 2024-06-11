@@ -66,4 +66,11 @@ class UserViewModel: NSObject {
 //        }
         return objs
     }
+    
+    func getUserItem() -> UserModel? {
+        guard !users.isEmpty else {
+            return nil
+        }
+        return users[0]
+    }
 }

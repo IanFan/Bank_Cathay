@@ -22,6 +22,9 @@ enum FontEnum: String {
     case SFProTextRegular
     case SFProTextSemibold
     
+    case PingFangTCMedium
+    case PingFangTCRegular
+    
     init?(rawValue _: String) {
         return nil
     }
@@ -40,6 +43,9 @@ enum FontEnum: String {
         case .SFProTextMedium: return "SFProText-Medium"
         case .SFProTextRegular: return "SFProText-Regular"
         case .SFProTextSemibold: return "SFProText-Semibold"
+            
+        case .PingFangTCMedium: return "PingFangTC-Medium"
+        case .PingFangTCRegular: return "PingFangTC-Regular"
         }
     }
 }
