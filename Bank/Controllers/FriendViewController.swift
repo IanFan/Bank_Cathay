@@ -56,9 +56,9 @@ class FriendViewController: UIViewController {
         
         setupUI()
         
+        showRequestPopView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.userViewModel.loadData(isRefresh: false)
-            self.friendViewModel.loadData(isRefresh: false, requestType: self.requestFriendType)
+            self.requestAPIs(isRefresh: false)
         }
     }
     
@@ -213,6 +213,10 @@ class FriendViewController: UIViewController {
          */
     }
     
+    func requestAPIs(isRefresh: Bool) {
+        self.userViewModel.loadData(isRefresh: isRefresh)
+        self.friendViewModel.loadData(isRefresh: isRefresh, requestType: self.requestFriendType)
+    }
 }
 
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -404,4 +408,31 @@ extension FriendViewController: FriendTabHeaderDelegate {
 
 extension FriendViewController: FriendEmptybFooterDelegate {
     
+}
+
+extension FriendViewController {
+    func showRequestPopView() {
+        let alertController = UIAlertController(title: "Request Options", message: "", preferredStyle: .alert)
+        
+        let action1 = UIAlertAction(title: "Without Friend", style: .default) { action in
+            print("Button 1 tapped")
+            self.requestFriendType = .NoFriend
+            self.requestAPIs(isRefresh: false)
+        }
+        alertController.addAction(action1)
+        
+        let action2 = UIAlertAction(title: "Friend List Only", style: .default) { action in
+            self.requestFriendType = .FriendWithMixedSource
+            self.requestAPIs(isRefresh: false)
+        }
+        alertController.addAction(action2)
+        
+        let action3 = UIAlertAction(title: "Friend List & Invite List", style: .default) { action in
+            self.requestFriendType = .FriendAndInvite
+            self.requestAPIs(isRefresh: false)
+        }
+        alertController.addAction(action3)
+        
+        present(alertController, animated: true, completion: nil)
+    }
 }
