@@ -128,17 +128,25 @@ class UIFactory {
         textView.isUserInteractionEnabled = false
     }
 
-    static func createTextView(size: CGFloat, text: String, color: UIColor, fontName: String) -> UITextView {
+    static func createTextView(size: CGFloat, text: String, color: UIColor, font: FontEnum) -> UITextView {
+        let customFont: UIFont
+        if font == .DEFAULT {
+            customFont = UIFont.systemFont(ofSize: size)
+        } else {
+            customFont = UIFont(name: font.rawValue, size: size) ?? UIFont.systemFont(ofSize: size)
+        }
+        
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = text
         textView.textColor = color
         textView.backgroundColor = UIColor.clear
-        textView.font = UIFont(name: fontName, size: size)
+        textView.font = customFont
         textView.isEditable = false
         textView.isSelectable = false
         textView.isScrollEnabled = false
         textView.isUserInteractionEnabled = false
+        
         return textView
     }
 
@@ -286,7 +294,7 @@ class UIFactory {
         }
     }
 
-    static func createTextButton(size: CGFloat, text: String, textColor: UIColor, bgColor: UIColor, font: FontEnum = .DEFAULT, uppercased: Bool = false) -> UIButton {
+    static func createTextButton(size: CGFloat, text: String, textColor: UIColor, bgColor: UIColor, font: FontEnum, uppercased: Bool = false) -> UIButton {
         let systemDefaultBtn: UIButton = UIButton(type: UIButton.ButtonType.system)
         systemDefaultBtn.translatesAutoresizingMaskIntoConstraints = false
         systemDefaultBtn.backgroundColor = bgColor

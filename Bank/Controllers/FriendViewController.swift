@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum FriendSection: Int {
+enum FriendSection: Int, CaseIterable {
     case User = 0
     case InviteFriend = 1
     case Freind = 2
@@ -24,6 +24,7 @@ class FriendViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var userHeader: FriendUserHeader?
     var friendTabHeader: FriendTabHeader?
+    var friendEmptyFooter: FriendEmptyFooter?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -62,15 +63,19 @@ class FriendViewController: UIViewController {
     }
     
     func setupUI() {
-        view.backgroundColor = ColorEnum.white3.color
+        view.backgroundColor = ColorEnum.white2.color
         
         // collectionView
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        // register cells
         cv.register(FriendInviteCell.self, forCellWithReuseIdentifier: FriendInviteCell.cellID)
+        //register headers
         cv.register(FriendUserHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FriendUserHeader.headerID)
         cv.register(FriendTabHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FriendTabHeader.headerID)
+        //register footers
+        cv.register(FriendEmptyFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FriendEmptyFooter.headerID)
         cv.delegate = self
         cv.dataSource = self
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -212,10 +217,7 @@ class FriendViewController: UIViewController {
 
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in _: UICollectionView) -> Int {
-        // header User
-        // header Friend Tab
-        // footer Friend Empty
-        return 3
+        return FriendSection.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -248,21 +250,46 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let section = indexPath.section
-        switch section {
-        case FriendSection.User.rawValue:
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendUserHeader.headerID, for: indexPath) as! FriendUserHeader
-            header.delegate = self
-            self.userHeader = header
-            return header
-        case FriendSection.InviteFriend.rawValue:
-            return UICollectionReusableView()
-        case FriendSection.Freind.rawValue:
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendTabHeader.headerID, for: indexPath) as! FriendTabHeader
-            header.delegate = self
-            self.friendTabHeader = header
-            return header
-        default:
+        // header
+        if kind == UICollectionView.elementKindSectionHeader {
+            let section = indexPath.section
+            switch section {
+            case FriendSection.User.rawValue:
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendUserHeader.headerID, for: indexPath) as! FriendUserHeader
+                header.delegate = self
+                self.userHeader = header
+                return header
+            case FriendSection.InviteFriend.rawValue:
+                return UICollectionReusableView()
+            case FriendSection.Freind.rawValue:
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendTabHeader.headerID, for: indexPath) as! FriendTabHeader
+                header.delegate = self
+                self.friendTabHeader = header
+                return header
+            default:
+                return UICollectionReusableView()
+            }
+        } else if kind == UICollectionView.elementKindSectionFooter {
+            let section = indexPath.section
+            switch section {
+            case FriendSection.User.rawValue:
+                return UICollectionReusableView()
+            case FriendSection.InviteFriend.rawValue:
+                return UICollectionReusableView()
+            case FriendSection.Freind.rawValue:
+                switch requestFriendType {
+                case .NoFriend:
+                    let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendEmptyFooter.headerID, for: indexPath) as! FriendEmptyFooter
+                    footer.delegate = self
+                    self.friendEmptyFooter = footer
+                    return footer
+                default:
+                    return UICollectionReusableView()
+                }
+            default:
+                return UICollectionReusableView()
+            }
+        } else {
             return UICollectionReusableView()
         }
     }
@@ -304,7 +331,21 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         case FriendSection.Freind.rawValue:
             return CGSize(width: width, height: 38*scale)
         default:
-            return CGSize(width: width, height: 100*scale)
+            return CGSize(width: width, height: 0)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        let width = collectionView.frame.width
+        switch section {
+        case FriendSection.User.rawValue:
+            return CGSize(width: width, height: 0)
+        case FriendSection.InviteFriend.rawValue:
+            return CGSize(width: width, height: 0)
+        case FriendSection.Freind.rawValue:
+            return CGSize(width: width, height: 460*scale)
+        default:
+            return CGSize(width: width, height: 0)
         }
     }
 }
@@ -334,16 +375,18 @@ extension FriendViewController: FriendViewModelProtocol {
         }
         let friendBadgeCount = friendViewModel.getCompleteFriendCount()
         var tabModels = [FriendTabModel]()
+        let tabName1 = "好友".localized()
+        let tabName2 = "聊天".localized()
         switch requestFriendType {
         case .NoFriend:
-            tabModels.append(FriendTabModel(name: "好友".localized(), badgeCount: 0))
-            tabModels.append(FriendTabModel(name: "聊天".localized(), badgeCount: 0))
+            tabModels.append(FriendTabModel(name: tabName1, badgeCount: 0))
+            tabModels.append(FriendTabModel(name: tabName2, badgeCount: 0))
         case .FriendWithMixedSource:
-            tabModels.append(FriendTabModel(name: "好友".localized(), badgeCount: 0))
-            tabModels.append(FriendTabModel(name: "聊天".localized(), badgeCount: 100))
+            tabModels.append(FriendTabModel(name: tabName1, badgeCount: 0))
+            tabModels.append(FriendTabModel(name: tabName2, badgeCount: 100))
         case .FriendAndInvite:
-            tabModels.append(FriendTabModel(name: "好友".localized(), badgeCount: friendBadgeCount))
-            tabModels.append(FriendTabModel(name: "聊天".localized(), badgeCount: 100))
+            tabModels.append(FriendTabModel(name: tabName1, badgeCount: friendBadgeCount))
+            tabModels.append(FriendTabModel(name: tabName2, badgeCount: 100))
         }
         friendTabHeader.updateWithData(models: tabModels)
     }
@@ -352,8 +395,13 @@ extension FriendViewController: FriendViewModelProtocol {
 extension FriendViewController: FriendUserHeaderDelegate {
     
 }
+
 extension FriendViewController: FriendTabHeaderDelegate {
     func friendTabTapped(index: Int) {
         print("friendTabTapped \(index)")
     }
+}
+
+extension FriendViewController: FriendEmptybFooterDelegate {
+    
 }
