@@ -8,56 +8,32 @@
 import Foundation
 import UIKit
 
+struct TabInfo {
+    let title: String
+    let imageName: String
+    let selectedImageName: String
+}
 enum MainTabEnum: Int {
-    case Home = 0
-    case Account = 1
-    case Location = 2
-    case Service = 3
+    case Product = 0
+    case Friend = 1
+    case Home = 2
+    case Manage = 3
+    case Setting = 4
     
-    var stringValue: String {
+    var tabInfo: TabInfo {
         switch self {
-        case .Home:
-            return "Home"
-        case .Account:
-            return "Account"
-        case .Location:
-            return "Location"
-        case .Service:
-            return "Service"
-        }
-    }
-    
-    var imageName: String {
-        switch self {
-        case .Home:
-            return "icTabbarHomeActive"
-        case .Account:
-            return "icTabbarAccount"
-        case .Location:
-            return "icTabbarLocationActive"
-        case .Service:
-            return "icTabbarLocationActive"
-        }
-    }
-    
-    var selectedImageName: String {
-        switch self {
-        case .Home:
-            return "icTabbarHomeActive"
-        case .Account:
-            return "icTabbarAccount"
-        case .Location:
-            return "icTabbarLocationActive"
-        case .Service:
-            return "icTabbarLocationActive"
+        case .Product: return TabInfo(title: "錢錢", imageName: "icTabbarProductsOff_3", selectedImageName: "icTabbarProductsOff_3")
+        case .Friend: return TabInfo(title: "朋友", imageName: "icTabbarFriendsOn_3", selectedImageName: "icTabbarFriendsOn_3")
+        case .Home: return TabInfo(title: "", imageName: "icTabbarHomeOff", selectedImageName: "icTabbarHomeOff")
+        case .Manage: return TabInfo(title: "記帳", imageName: "icTabbarManageOff_3", selectedImageName: "icTabbarManageOff_3")
+        case .Setting: return TabInfo(title: "設定", imageName: "icTabbarSettingOff_3", selectedImageName: "icTabbarSettingOff_3")
         }
     }
 }
 
 class MainTabBarController: UITabBarController {
-    var customTabBar: MainTabBar!
-    
     let scale: CGFloat = UIFactory.getScale()
+    var customTabBar: MainTabBar!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -74,23 +50,26 @@ class MainTabBarController: UITabBarController {
     private func setupTabBar() {
         tabBar.isHidden = true
         
-        let firstVC = createMainViewController(tabEnum: .Home)
-        let secondVC = createMainViewController(tabEnum: .Account)
-        let thirdVC = createMainViewController(tabEnum: .Location)
-        let forthVC = createMainViewController(tabEnum: .Service)
-        self.viewControllers = [firstVC, secondVC, thirdVC, forthVC]
+        let vc1 = createMainViewController(tabEnum: .Product)
+        let vc2 = createMainViewController(tabEnum: .Friend)
+        let vc3 = createMainViewController(tabEnum: .Home)
+        let vc4 = createMainViewController(tabEnum: .Manage)
+        let vc5 = createMainViewController(tabEnum: .Setting)
+        self.viewControllers = [vc1, vc2, vc3, vc4, vc5]
         
         let customTabBar = MainTabBar()
         self.view.addSubview(customTabBar)
+        self.customTabBar = customTabBar
         customTabBar.setupTabBar(tabBarConroller: self)
         self.delegate = self
-        
         updateTabBarAppearance()
+        
+        self.selectTabIndex(MainTabEnum.Friend.rawValue)
     }
     
     private func createMainViewController(tabEnum: MainTabEnum) -> UIViewController {
-        if tabEnum == .Home {
-            let vc = HomeViewController()
+        if tabEnum == .Friend {
+            let vc = FriendViewController()
             vc.tabBarItem = createTabBarItem(tabEnum: tabEnum)
             return vc
         } else {
@@ -109,24 +88,32 @@ class MainTabBarController: UITabBarController {
     }
     
     private func createTabBarItem(tabEnum: MainTabEnum) -> UITabBarItem {
-        let titleStr = tabEnum.stringValue
-        let tabTitleColorHexSelect: String = "#FF8861"
-        let tabTitleColorHex: String = "#555555"
-        let imageName = tabEnum.imageName
-        let selectedImageName = tabEnum.selectedImageName
+        let tabInfo = tabEnum.tabInfo
+        let titleStr = tabInfo.title
+        let imageName = tabInfo.imageName
+        let selectedImageName = tabInfo.selectedImageName
+        let tabTitleColorHexSelect: UIColor = .clear
+        let tabTitleColorHex: UIColor = .clear
         
-        let title = titleStr
+        let title = ""
         let tab = UITabBarItem.init(title: title,
                                     image: UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal),
                                     selectedImage: UIImage(named: selectedImageName)?.withRenderingMode(.alwaysOriginal))
-        tab.setTitleTextAttributes([.foregroundColor : UIColor(hexString: tabTitleColorHex)], for: .normal)
-        tab.setTitleTextAttributes([.foregroundColor : UIColor(hexString: tabTitleColorHexSelect)], for: .selected)
+        tab.setTitleTextAttributes([.foregroundColor : tabTitleColorHex], for: .normal)
+        tab.setTitleTextAttributes([.foregroundColor : tabTitleColorHexSelect], for: .selected)
         tab.tag = tabEnum.rawValue
         
         // Adjust vertical position of icon
-        tab.imageInsets = UIEdgeInsets(top: 7*scale, left: 0, bottom: -7*scale, right: 0)
         // Adjust vertical position of text
-        tab.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6*scale)
+        if tabEnum != .Home {
+            if UIFactory.isPad() {
+                tab.imageInsets = UIEdgeInsets(top: 2*scale, left: 0, bottom: -2*scale, right: 0)
+//                tab.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6*scale)
+            } else {
+                tab.imageInsets = UIEdgeInsets(top: 6*scale, left: 0, bottom: -6*scale, right: 0)
+//                tab.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6*scale)
+            }
+        }
         
         return tab
     }
@@ -148,6 +135,16 @@ class MainTabBarController: UITabBarController {
         
         self.tabBar.standardAppearance = tabBarAppearance
         self.tabBar.scrollEdgeAppearance = tabBarAppearance
+    }
+    
+    func selectTabIndex(_ index: Int) {
+        guard let items = customTabBar?.items, !items.isEmpty else {
+            return
+        }
+        
+        let index = max(min(index, items.count-1), 0)
+        customTabBar?.selectedItem = items[index]
+        self.selectedIndex = index
     }
 }
 

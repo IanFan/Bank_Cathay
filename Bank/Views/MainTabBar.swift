@@ -10,6 +10,7 @@ import UIKit
 
 class MainTabBar: UITabBar {
     let scale: CGFloat = UIFactory.getScale()
+    var bg: UIView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,16 +22,8 @@ class MainTabBar: UITabBar {
     
     func setupTabBar(tabBarConroller: UITabBarController) {
         setup(tabBarConroller: tabBarConroller)
-        roundTabBar(tabBarConroller: tabBarConroller)
+//        roundTabBar(tabBarConroller: tabBarConroller)
         adjustTabBarPostion(tabBarConroller: tabBarConroller)
-        selectTabIndex(0)
-    }
-    
-    func selectTabIndex(_ index: Int) {
-        if let items = self.items, !items.isEmpty {
-            let index = max(min(index, items.count-1), 0)
-            self.selectedItem = items[index]
-        }
     }
     
     private func setup(tabBarConroller: UITabBarController) {
@@ -38,6 +31,37 @@ class MainTabBar: UITabBar {
         barTintColor = .clear
         backgroundImage = UIImage()
         shadowImage = UIImage()
+        
+        setupBg(tabBarConroller: tabBarConroller)
+    }
+    
+    private func setupBg(tabBarConroller: UITabBarController) {
+        let bg = UIFactory.createImage(name: "imgTabbarBg")
+        addSubview(bg)
+        bg.backgroundColor = .clear
+        bg.contentMode = .scaleToFill
+        sendSubviewToBack(bg)
+        self.bg = bg
+        if let firstItem = items?[2],
+           let firstItemView = firstItem.value(forKey: "view") as? UIView,
+           let itemImageView = firstItemView.subviews.compactMap({ $0 as? UIImageView }).first {
+            NSLayoutConstraint.activate([
+                bg.leadingAnchor.constraint(equalTo: tabBarConroller.view.leadingAnchor),
+                bg.trailingAnchor.constraint(equalTo: tabBarConroller.view.trailingAnchor),
+                bg.bottomAnchor.constraint(equalTo: itemImageView.bottomAnchor),
+                bg.topAnchor.constraint(equalTo: itemImageView.topAnchor)
+            ])
+        }
+        
+        let bg2 = UIFactory.createView(color: .white)
+        addSubview(bg2)
+        sendSubviewToBack(bg2)
+        NSLayoutConstraint.activate([
+            bg2.leadingAnchor.constraint(equalTo: tabBarConroller.view.leadingAnchor),
+            bg2.trailingAnchor.constraint(equalTo: tabBarConroller.view.trailingAnchor),
+            bg2.bottomAnchor.constraint(equalTo: tabBarConroller.view.bottomAnchor),
+            bg2.topAnchor.constraint(equalTo: bg.bottomAnchor, constant: -1)
+        ])
     }
 
     private func roundTabBar(tabBarConroller: UITabBarController) {
@@ -63,8 +87,8 @@ class MainTabBar: UITabBar {
         NSLayoutConstraint.activate([
             tabBar.leadingAnchor.constraint(equalTo: tabBarConroller.view.leadingAnchor),
             tabBar.trailingAnchor.constraint(equalTo: tabBarConroller.view.trailingAnchor),
-            tabBar.bottomAnchor.constraint(equalTo: tabBarConroller.view.bottomAnchor, constant: -40*scale),
-            tabBar.heightAnchor.constraint(equalToConstant: 50*scale)
+            tabBar.bottomAnchor.constraint(equalTo: tabBarConroller.view.bottomAnchor),
+            tabBar.heightAnchor.constraint(equalToConstant: 68*scale)
         ])
         
         tabBar.itemPositioning = .centered
@@ -72,7 +96,7 @@ class MainTabBar: UITabBar {
         
         // Set item width to reduce spacing
         if let items = tabBar.items, !items.isEmpty {
-            tabBar.itemWidth = (tabBarConroller.view.frame.width - 90*scale) / CGFloat(items.count)
+            tabBar.itemWidth = (tabBarConroller.view.frame.width - 30*scale) / CGFloat(items.count)
         }
     }
 }

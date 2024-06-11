@@ -96,6 +96,7 @@
 		A4D08E352C16FC6D00F2CD57 /* UserLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E342C16FC6D00F2CD57 /* UserLoaderTests.swift */; };
 		A4D08E382C17004400F2CD57 /* FriendViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E372C17004400F2CD57 /* FriendViewModelTests.swift */; };
 		A4D08E3A2C17005100F2CD57 /* UserViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E392C17005100F2CD57 /* UserViewModelTests.swift */; };
+		A4D08E3C2C174A1E00F2CD57 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +202,7 @@
 		A4D08E342C16FC6D00F2CD57 /* UserLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoaderTests.swift; sourceTree = "<group>"; };
 		A4D08E372C17004400F2CD57 /* FriendViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModelTests.swift; sourceTree = "<group>"; };
 		A4D08E392C17005100F2CD57 /* UserViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTests.swift; sourceTree = "<group>"; };
+		A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				A47286212C1402AA003DDC64 /* MainTabBarController.swift */,
+				A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */,
 				A47286292C140CA6003DDC64 /* HomeViewController.swift */,
 				A4D08DE42C15489900F2CD57 /* NotificationViewController.swift */,
 			);
@@ -641,6 +644,7 @@
 				A4D08E2B2C16DAE800F2CD57 /* UserLoader.swift in Sources */,
 				A4D08DF62C1598E600F2CD57 /* HomeNavigationView.swift in Sources */,
 				A4D08E252C16D10900F2CD57 /* FriendModel.swift in Sources */,
+				A4D08E3C2C174A1E00F2CD57 /* FriendViewController.swift in Sources */,
 				A4D08DD72C1479E300F2CD57 /* FavoriteViewModel.swift in Sources */,
 				A4D08E0E2C15F82200F2CD57 /* ImageLoader.swift in Sources */,
 				A4D08DC72C146F6B00F2CD57 /* AmountDigitalParser.swift in Sources */,
