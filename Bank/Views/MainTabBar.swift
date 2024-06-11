@@ -10,7 +10,6 @@ import UIKit
 
 class MainTabBar: UITabBar {
     let scale: CGFloat = UIFactory.getScale()
-    var bg: UIView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,7 +40,6 @@ class MainTabBar: UITabBar {
         bg.backgroundColor = .clear
         bg.contentMode = .scaleToFill
         sendSubviewToBack(bg)
-        self.bg = bg
         if let firstItem = items?[2],
            let firstItemView = firstItem.value(forKey: "view") as? UIView,
            let itemImageView = firstItemView.subviews.compactMap({ $0 as? UIImageView }).first {
@@ -53,14 +51,14 @@ class MainTabBar: UITabBar {
             ])
         }
         
-        let bg2 = UIFactory.createView(color: .white)
-        addSubview(bg2)
-        sendSubviewToBack(bg2)
+        let bg_bottomArea = UIFactory.createView(color: .white)
+        addSubview(bg_bottomArea)
+        sendSubviewToBack(bg_bottomArea)
         NSLayoutConstraint.activate([
-            bg2.leadingAnchor.constraint(equalTo: tabBarConroller.view.leadingAnchor),
-            bg2.trailingAnchor.constraint(equalTo: tabBarConroller.view.trailingAnchor),
-            bg2.bottomAnchor.constraint(equalTo: tabBarConroller.view.bottomAnchor),
-            bg2.topAnchor.constraint(equalTo: bg.bottomAnchor, constant: -1)
+            bg_bottomArea.leadingAnchor.constraint(equalTo: tabBarConroller.view.leadingAnchor),
+            bg_bottomArea.trailingAnchor.constraint(equalTo: tabBarConroller.view.trailingAnchor),
+            bg_bottomArea.bottomAnchor.constraint(equalTo: tabBarConroller.view.bottomAnchor),
+            bg_bottomArea.topAnchor.constraint(equalTo: bg.bottomAnchor, constant: -1)
         ])
     }
 
@@ -84,11 +82,12 @@ class MainTabBar: UITabBar {
     private func adjustTabBarPostion(tabBarConroller: UITabBarController) {
         let tabBar = self
         tabBar.translatesAutoresizingMaskIntoConstraints = false
+        let tabBarHeight = UIFactory.isPad() ? 36*scale : 68*scale
         NSLayoutConstraint.activate([
             tabBar.leadingAnchor.constraint(equalTo: tabBarConroller.view.leadingAnchor),
             tabBar.trailingAnchor.constraint(equalTo: tabBarConroller.view.trailingAnchor),
             tabBar.bottomAnchor.constraint(equalTo: tabBarConroller.view.bottomAnchor),
-            tabBar.heightAnchor.constraint(equalToConstant: 68*scale)
+            tabBar.heightAnchor.constraint(equalToConstant: tabBarHeight)
         ])
         
         tabBar.itemPositioning = .centered

@@ -150,6 +150,7 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        /*
         guard let tabItems = tabBarController.tabBar.items else { return }
         
         for item in tabItems {
@@ -161,5 +162,6 @@ extension MainTabBarController: UITabBarControllerDelegate {
                                              .font : UIFont(name: FontEnum.SFProTextRegular.rawValue, size: 12*scale) ?? UIFont.systemFont(ofSize: 12*scale)], for: .normal)
             }
         }
+        */
     }
 }

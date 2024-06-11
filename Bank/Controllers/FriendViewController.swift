@@ -56,8 +56,9 @@ class FriendViewController: UIViewController {
     }
     
     func setupUI() {
-        /*
         view.backgroundColor = ColorEnum.localWhite2.color
+        /*
+        
         
         // UIScrollView
         let scrollView = UIScrollView()
