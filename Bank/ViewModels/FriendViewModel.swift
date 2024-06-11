@@ -129,3 +129,9 @@ class FriendViewModel: NSObject {
         return (friends, inviteFriends)
     }
 }
+
+extension FriendViewModel {
+    func getCompleteFriendCount() -> Int {
+        return friends.filter { $0.status == 2 }.count
+    }
+}

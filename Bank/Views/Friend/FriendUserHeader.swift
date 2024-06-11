@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 protocol FriendUserHeaderDelegate: AnyObject {
-//    func gotoThemeList(categoryObj: CategoryObject)
 }
 
 class FriendUserHeader: UICollectionReusableView {
@@ -29,6 +28,7 @@ class FriendUserHeader: UICollectionReusableView {
     var lbKokoid: UILabel!
     var ivKoko: UIImageView!
     var ivKokoBadge: UIView!
+    var btnKoko: UIButton!
     var btnAvatar: UIButton!
     
     override init(frame: CGRect) {
@@ -42,6 +42,8 @@ class FriendUserHeader: UICollectionReusableView {
     }
     
     func setupUI() {
+        backgroundColor = ColorEnum.white2.color
+        
         let ivATM = UIFactory.createImage(name: "icNavPinkWithdraw")
         let btnATM = UIFactory.createImageButton(name: "")
         let ivTransfer = UIFactory.createImage(name: "icNavPinkTransfer")
@@ -52,6 +54,7 @@ class FriendUserHeader: UICollectionReusableView {
         let lbKokoid = UIFactory.createLabel(size: 13*scale, text: "設定 KOKO ID".localized(), color: ColorEnum.greyishBrown.color, font: .PingFangTCMedium)
         let ivKoko = UIFactory.createImage(name: "icInfoBackDeepGray")
         let ivKokoBadge = UIFactory.createView(color: ColorEnum.hotpink.color, corner: 5*scale)
+        let btnKoko = UIFactory.createImageButton(name: "")
         let btnAvatar = UIFactory.createImageButton(name: "imgFriendsFemaleDefault", corner: 27*scale)
         
         self.ivATM = ivATM
@@ -64,6 +67,7 @@ class FriendUserHeader: UICollectionReusableView {
         self.lbKokoid = lbKokoid
         self.ivKoko = ivKoko
         self.ivKokoBadge = ivKokoBadge
+        self.btnKoko = btnKoko
         self.btnAvatar = btnAvatar
         
         addSubview(ivATM)
@@ -76,6 +80,7 @@ class FriendUserHeader: UICollectionReusableView {
         addSubview(lbKokoid)
         addSubview(ivKoko)
         addSubview(ivKokoBadge)
+        addSubview(btnKoko)
         addSubview(btnAvatar)
         
         NSLayoutConstraint.activate([
@@ -127,6 +132,11 @@ class FriendUserHeader: UICollectionReusableView {
             ivKokoBadge.leadingAnchor.constraint(equalTo: ivKoko.trailingAnchor, constant: 21*scale),
             ivKokoBadge.widthAnchor.constraint(equalToConstant: 10*scale),
             ivKokoBadge.heightAnchor.constraint(equalToConstant: 10*scale),
+            
+            btnKoko.topAnchor.constraint(equalTo: lbKokoid.topAnchor),
+            btnKoko.leadingAnchor.constraint(equalTo: lbKokoid.leadingAnchor),
+            btnKoko.trailingAnchor.constraint(equalTo: ivKoko.trailingAnchor),
+            btnKoko.bottomAnchor.constraint(equalTo: lbKokoid.bottomAnchor),
             
             btnAvatar.topAnchor.constraint(equalTo: ivATM.bottomAnchor, constant: 27*scale),
             btnAvatar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30*scale),

@@ -99,8 +99,9 @@
 		A4D08E3C2C174A1E00F2CD57 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */; };
 		A4D08E3F2C18108800F2CD57 /* FriendUserHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */; };
 		A4D08E412C1810BB00F2CD57 /* FriendInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */; };
-		A4D08E432C1810F000F2CD57 /* FreindTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E422C1810F000F2CD57 /* FreindTabHeader.swift */; };
+		A4D08E432C1810F000F2CD57 /* FriendTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E422C1810F000F2CD57 /* FriendTabHeader.swift */; };
 		A4D08E452C18119F00F2CD57 /* FriendEmptyFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */; };
+		A4D08E472C18369900F2CD57 /* FriendTabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E462C18369900F2CD57 /* FriendTabModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,8 +210,9 @@
 		A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
 		A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendUserHeader.swift; sourceTree = "<group>"; };
 		A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteCell.swift; sourceTree = "<group>"; };
-		A4D08E422C1810F000F2CD57 /* FreindTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreindTabHeader.swift; sourceTree = "<group>"; };
+		A4D08E422C1810F000F2CD57 /* FriendTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTabHeader.swift; sourceTree = "<group>"; };
 		A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendEmptyFooter.swift; sourceTree = "<group>"; };
+		A4D08E462C18369900F2CD57 /* FriendTabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTabModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +286,7 @@
 				A4D08E092C15F33300F2CD57 /* HomeAdModel.swift */,
 				A4D08E222C16D0D600F2CD57 /* UserModel.swift */,
 				A4D08E242C16D10900F2CD57 /* FriendModel.swift */,
+				A4D08E462C18369900F2CD57 /* FriendTabModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -528,7 +531,7 @@
 			children = (
 				A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */,
 				A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */,
-				A4D08E422C1810F000F2CD57 /* FreindTabHeader.swift */,
+				A4D08E422C1810F000F2CD57 /* FriendTabHeader.swift */,
 				A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */,
 			);
 			path = Friend;
@@ -669,7 +672,7 @@
 				A4D08E3C2C174A1E00F2CD57 /* FriendViewController.swift in Sources */,
 				A4D08DD72C1479E300F2CD57 /* FavoriteViewModel.swift in Sources */,
 				A4D08E0E2C15F82200F2CD57 /* ImageLoader.swift in Sources */,
-				A4D08E432C1810F000F2CD57 /* FreindTabHeader.swift in Sources */,
+				A4D08E432C1810F000F2CD57 /* FriendTabHeader.swift in Sources */,
 				A4D08E3F2C18108800F2CD57 /* FriendUserHeader.swift in Sources */,
 				A4D08DC72C146F6B00F2CD57 /* AmountDigitalParser.swift in Sources */,
 				A4D08E0A2C15F33300F2CD57 /* HomeAdModel.swift in Sources */,
@@ -682,6 +685,7 @@
 				A4D08DD12C1476A300F2CD57 /* AmountFixedDepositLoader.swift in Sources */,
 				A4D08E062C15DB2500F2CD57 /* FavoriteCell.swift in Sources */,
 				A4D08E2D2C16DAF100F2CD57 /* FriendLoader.swift in Sources */,
+				A4D08E472C18369900F2CD57 /* FriendTabModel.swift in Sources */,
 				A47286322C140E24003DDC64 /* ExUISearchBar.swift in Sources */,
 				A4D08E312C16DCAE00F2CD57 /* FriendViewModel.swift in Sources */,
 				A4D08DC52C146F3E00F2CD57 /* AmountFixedDepositParser.swift in Sources */,
