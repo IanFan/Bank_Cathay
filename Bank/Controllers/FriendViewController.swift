@@ -10,8 +10,9 @@ import UIKit
 
 enum FriendSection: Int, CaseIterable {
     case User = 0
-    case InviteFriend = 1
-    case Freind = 2
+    case InviteFriendList = 1
+    case FreindTab = 2
+    case FriendList = 3
 }
 
 class FriendViewController: UIViewController {
@@ -19,12 +20,14 @@ class FriendViewController: UIViewController {
     let friendViewModel = FriendViewModel()
     
     let scale: CGFloat = UIFactory.getScale()
-    var requestFriendType: RequestFriendType = .NoFriend
+    var requestFriendType: RequestFriendType = .FriendWithMixedSource
     var cv: UICollectionView!
     var refreshControl: UIRefreshControl!
     var userHeader: FriendUserHeader?
     var friendTabHeader: FriendTabHeader?
+    var friendListSearchHeader: FriendListSearchHeader?
     var friendEmptyFooter: FriendEmptyFooter?
+    let cellID = "cellID"
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -56,24 +59,27 @@ class FriendViewController: UIViewController {
         
         setupUI()
         
-        showRequestPopView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.requestAPIs(isRefresh: false)
+//            self.showRequestPopView()
         }
     }
     
     func setupUI() {
-        view.backgroundColor = ColorEnum.white2.color
+        view.backgroundColor = ColorFactory.white3
         
         // collectionView
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         // register cells
-        cv.register(FriendInviteCell.self, forCellWithReuseIdentifier: FriendInviteCell.cellID)
+        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
+        cv.register(FriendInviteListCell.self, forCellWithReuseIdentifier: FriendInviteListCell.cellID)
+        cv.register(FriendListCell.self, forCellWithReuseIdentifier: FriendListCell.cellID)
         //register headers
         cv.register(FriendUserHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FriendUserHeader.headerID)
         cv.register(FriendTabHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FriendTabHeader.headerID)
+        cv.register(FriendListSearchHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FriendListSearchHeader.headerID)
         //register footers
         cv.register(FriendEmptyFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FriendEmptyFooter.headerID)
         cv.delegate = self
@@ -85,7 +91,7 @@ class FriendViewController: UIViewController {
         
         // pull refresh
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = ColorEnum.greyishBrown.color
+        refreshControl.tintColor = ColorFactory.greyishBrown
         refreshControl.addTarget(self, action: #selector(refreshCollectionView(_:)), for: .valueChanged)
         cv.refreshControl = refreshControl
         self.refreshControl = refreshControl
@@ -94,123 +100,9 @@ class FriendViewController: UIViewController {
         NSLayoutConstraint.activate([
             cv.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             cv.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            cv.topAnchor.constraint(equalTo: view.topAnchor),
+            cv.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             cv.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        /*
-        
-        
-        // UIScrollView
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90*scale, right: 0)
-        view.addSubview(scrollView)
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = ColorEnum.systemGray10.color
-        scrollView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        self.refreshControl = refreshControl
-        
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-        
-        // contentView
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(contentView)
-        
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-        
-        // main stack
-        let mainStackView = UIStackView()
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 0
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(mainStackView)
-        
-        NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
-        
-        // navigationView
-        let navigationView = HomeNavigationView()
-        view.addSubview(navigationView)
-        self.navigationView = navigationView
-        navigationView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            navigationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            navigationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            navigationView.heightAnchor.constraint(equalToConstant: 48*scale),
-        ])
-        mainStackView.addArrangedSubview(navigationView)
-        
-        // amountView
-        let amountView = HomeAmountView()
-        self.amountView = amountView
-        navigationView.translatesAutoresizingMaskIntoConstraints = false
-        mainStackView.addArrangedSubview(amountView)
-        
-        // menuView
-        let menuView = HomeMenuView()
-        view.addSubview(menuView)
-        self.menuView = menuView
-        menuView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            menuView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            menuView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            menuView.heightAnchor.constraint(equalToConstant: 192*scale),
-        ])
-        mainStackView.addArrangedSubview(menuView)
-        
-        // favoriteView
-        let favoriteView = HomeFavoriteView(frame: .zero, favoriteViewModel: favoriteViewModel)
-        view.addSubview(favoriteView)
-        self.favoriteView = favoriteView
-        favoriteView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            favoriteView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            favoriteView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            favoriteView.heightAnchor.constraint(equalToConstant: 136*scale),
-        ])
-        mainStackView.addArrangedSubview(favoriteView)
-        
-        // adView
-        let adView = HomeAdView(frame: .zero, adBannerViewModel: adBannerViewModel)
-        view.addSubview(adView)
-        self.adView = adView
-        adView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            adView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            adView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            adView.heightAnchor.constraint(equalToConstant: 116*scale),
-        ])
-        mainStackView.addArrangedSubview(adView)
-        
-        // action
-        navigationView.btnAvatarAction = { [weak self] in
-            guard let self = self else { return }
-        }
-        navigationView.btnBellAction = { [weak self] in
-            guard let self = self else { return }
-            let vc = NotificationViewController(messageViewModel: self.messageViewModel)
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-         */
     }
     
     func requestAPIs(isRefresh: Bool) {
@@ -228,20 +120,38 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         switch section {
         case FriendSection.User.rawValue:
             return 0
-        case FriendSection.InviteFriend.rawValue:
+        case FriendSection.InviteFriendList.rawValue:
             return 0
-        case FriendSection.Freind.rawValue:
+        case FriendSection.FreindTab.rawValue:
             return 0
+        case FriendSection.FriendList.rawValue:
+            return friendViewModel.getFriendListCount()
         default:
             return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let obj = messages[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendInviteCell.cellID, for: indexPath) as! FriendInviteCell
-//        cell.setupWithItem(item: obj)
-        return cell
+        let section = indexPath.section
+        let row = indexPath.row
+        switch section {
+        case FriendSection.User.rawValue:
+            return collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        case FriendSection.InviteFriendList.rawValue:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendInviteListCell.cellID, for: indexPath) as! FriendInviteListCell
+            return cell
+        case FriendSection.FreindTab.rawValue:
+            return collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        case FriendSection.FriendList.rawValue:
+            let obj = friendViewModel.friends[row]
+            let item = FriendListModel(name: obj.name, status: obj.status, isTop: obj.isTop, fid: obj.fid, updateDate: obj.updateDate, updateDateTime: obj.updateDateTime ?? 0, isTopInt: obj.isTopInt)
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendListCell.cellID, for: indexPath) as! FriendListCell
+            cell.setupWithItem(item: item)
+            return cell
+        default:
+            return collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -263,12 +173,17 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 header.delegate = self
                 self.userHeader = header
                 return header
-            case FriendSection.InviteFriend.rawValue:
+            case FriendSection.InviteFriendList.rawValue:
                 return UICollectionReusableView()
-            case FriendSection.Freind.rawValue:
+            case FriendSection.FreindTab.rawValue:
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendTabHeader.headerID, for: indexPath) as! FriendTabHeader
                 header.delegate = self
                 self.friendTabHeader = header
+                return header
+            case FriendSection.FriendList.rawValue:
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendListSearchHeader.headerID, for: indexPath) as! FriendListSearchHeader
+                header.delegate = self
+                self.friendListSearchHeader = header
                 return header
             default:
                 return UICollectionReusableView()
@@ -278,18 +193,19 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             switch section {
             case FriendSection.User.rawValue:
                 return UICollectionReusableView()
-            case FriendSection.InviteFriend.rawValue:
+            case FriendSection.InviteFriendList.rawValue:
                 return UICollectionReusableView()
-            case FriendSection.Freind.rawValue:
-                switch requestFriendType {
-                case .NoFriend:
+            case FriendSection.FreindTab.rawValue:
+                if friendViewModel.getFriendListCount() == 0 {
                     let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendEmptyFooter.headerID, for: indexPath) as! FriendEmptyFooter
                     footer.delegate = self
                     self.friendEmptyFooter = footer
                     return footer
-                default:
+                } else {
                     return UICollectionReusableView()
                 }
+            case FriendSection.FriendList.rawValue:
+                return UICollectionReusableView()
             default:
                 return UICollectionReusableView()
             }
@@ -308,10 +224,12 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         switch section {
         case FriendSection.User.rawValue:
             return CGSize(width: width, height: 0)
-        case FriendSection.InviteFriend.rawValue:
+        case FriendSection.InviteFriendList.rawValue:
             return CGSize(width: width, height: 0)
-        case FriendSection.Freind.rawValue:
+        case FriendSection.FreindTab.rawValue:
             return CGSize(width: width, height: 0)
+        case FriendSection.FriendList.rawValue:
+            return CGSize(width: width, height: 60*scale)
         default:
             return CGSize(width: width, height: 100*scale)
         }
@@ -330,10 +248,13 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         switch section {
         case FriendSection.User.rawValue:
             return CGSize(width: width, height: 142*scale)
-        case FriendSection.InviteFriend.rawValue:
+        case FriendSection.InviteFriendList.rawValue:
             return CGSize(width: width, height: 0)
-        case FriendSection.Freind.rawValue:
+        case FriendSection.FreindTab.rawValue:
             return CGSize(width: width, height: 38*scale)
+        case FriendSection.FriendList.rawValue:
+            return friendViewModel.getFriendListCount() > 0 ?
+            CGSize(width: width, height: 61*scale) : CGSize(width: width, height: 0)
         default:
             return CGSize(width: width, height: 0)
         }
@@ -344,10 +265,13 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         switch section {
         case FriendSection.User.rawValue:
             return CGSize(width: width, height: 0)
-        case FriendSection.InviteFriend.rawValue:
+        case FriendSection.InviteFriendList.rawValue:
             return CGSize(width: width, height: 0)
-        case FriendSection.Freind.rawValue:
-            return CGSize(width: width, height: 460*scale)
+        case FriendSection.FreindTab.rawValue:
+            return friendViewModel.getFriendListCount() > 0 ?
+            CGSize(width: width, height: 0) : CGSize(width: width, height: 460*scale)
+        case FriendSection.FriendList.rawValue:
+            return CGSize(width: width, height: 0)
         default:
             return CGSize(width: width, height: 0)
         }
@@ -386,13 +310,15 @@ extension FriendViewController: FriendViewModelProtocol {
             tabModels.append(FriendTabModel(name: tabName1, badgeCount: 0))
             tabModels.append(FriendTabModel(name: tabName2, badgeCount: 0))
         case .FriendWithMixedSource:
-            tabModels.append(FriendTabModel(name: tabName1, badgeCount: 0))
+            tabModels.append(FriendTabModel(name: tabName1, badgeCount: friendBadgeCount))
             tabModels.append(FriendTabModel(name: tabName2, badgeCount: 100))
         case .FriendAndInvite:
             tabModels.append(FriendTabModel(name: tabName1, badgeCount: friendBadgeCount))
             tabModels.append(FriendTabModel(name: tabName2, badgeCount: 100))
         }
         friendTabHeader.updateWithData(models: tabModels)
+        
+        cv?.reloadData()
     }
 }
 
@@ -404,6 +330,10 @@ extension FriendViewController: FriendTabHeaderDelegate {
     func friendTabTapped(index: Int) {
         print("friendTabTapped \(index)")
     }
+}
+
+extension FriendViewController: FriendListSearchHeaderDelegate {
+    
 }
 
 extension FriendViewController: FriendEmptybFooterDelegate {

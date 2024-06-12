@@ -42,7 +42,7 @@ class FriendUserHeader: UICollectionReusableView {
     }
     
     func setupUI() {
-        backgroundColor = ColorEnum.white2.color
+        backgroundColor = ColorFactory.white2
         
         let ivATM = UIFactory.createImage(name: "icNavPinkWithdraw")
         let btnATM = UIFactory.createImageButton(name: "")
@@ -50,10 +50,10 @@ class FriendUserHeader: UICollectionReusableView {
         let btnTransfer = UIFactory.createImageButton(name: "")
         let ivScan = UIFactory.createImage(name: "icNavPinkScan")
         let btnScan = UIFactory.createImageButton(name: "")
-        let lbUserName = UIFactory.createLabel(size: 17*scale, text: "", color: ColorEnum.greyishBrown.color, font: .PingFangTCMedium)
-        let lbKokoid = UIFactory.createLabel(size: 13*scale, text: "設定 KOKO ID".localized(), color: ColorEnum.greyishBrown.color, font: .PingFangTCMedium)
+        let lbUserName = UIFactory.createLabel(size: 17*scale, text: "", color: ColorFactory.greyishBrown, font: .PingFangTCMedium)
+        let lbKokoid = UIFactory.createLabel(size: 13*scale, text: "設定 KOKO ID".localized(), color: ColorFactory.greyishBrown, font: .PingFangTCMedium)
         let ivKoko = UIFactory.createImage(name: "icInfoBackDeepGray")
-        let ivKokoBadge = UIFactory.createView(color: ColorEnum.hotpink.color, corner: 5*scale)
+        let ivKokoBadge = UIFactory.createView(color: ColorFactory.hotpink, corner: 5*scale)
         let btnKoko = UIFactory.createImageButton(name: "")
         let btnAvatar = UIFactory.createImageButton(name: "imgFriendsFemaleDefault", corner: 27*scale)
         

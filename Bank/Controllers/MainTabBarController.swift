@@ -74,10 +74,10 @@ class MainTabBarController: UITabBarController {
             return vc
         } else {
             let vc = UIViewController()
-            view.backgroundColor = ColorEnum.white3.color
+            view.backgroundColor = ColorFactory.white3
             vc.tabBarItem = createTabBarItem(tabEnum: tabEnum)
             
-            let lb = UIFactory.createLabel(size: 18*scale, text: "View Controller: \(tabEnum)", color: ColorEnum.brownGrey.color, font: .SFProTextHeavy)
+            let lb = UIFactory.createLabel(size: 18*scale, text: "View Controller: \(tabEnum)", color: ColorFactory.brownGrey, font: .SFProTextHeavy)
             vc.view.addSubview(lb)
             NSLayoutConstraint.activate([
                 lb.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
@@ -123,10 +123,10 @@ class MainTabBarController: UITabBarController {
         
         /*
         tabBarItemAppearance.selected.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: ColorEnum.localOrange1.color,
+            NSAttributedString.Key.foregroundColor: ColorFactory.localOrange1,
             .font : UIFont(name: FontEnum.SFProTextSemibold.rawValue, size: 12*scale) ?? UIFont.boldSystemFont(ofSize: 12*scale)]
         tabBarItemAppearance.normal.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: ColorEnum.systemGray7.color,
+            NSAttributedString.Key.foregroundColor: ColorFactory.systemGray7,
             .font : UIFont(name: FontEnum.SFProTextRegular.rawValue, size: 12*scale) ?? UIFont.systemFont(ofSize: 12*scale)]
         */
         
@@ -157,10 +157,10 @@ extension MainTabBarController: UITabBarControllerDelegate {
         
         for item in tabItems {
             if item == tabBarController.tabBar.selectedItem {
-                item.setTitleTextAttributes([.foregroundColor : ColorEnum.localOrange1.color,
+                item.setTitleTextAttributes([.foregroundColor : ColorFactory.localOrange1,
                                              .font : UIFont(name: FontEnum.SFProTextSemibold.rawValue, size: 12*scale) ?? UIFont.boldSystemFont(ofSize: 12*scale)], for: .normal)
             } else {
-                item.setTitleTextAttributes([.foregroundColor : ColorEnum.systemGray7.color,
+                item.setTitleTextAttributes([.foregroundColor : ColorFactory.systemGray7,
                                              .font : UIFont(name: FontEnum.SFProTextRegular.rawValue, size: 12*scale) ?? UIFont.systemFont(ofSize: 12*scale)], for: .normal)
             }
         }

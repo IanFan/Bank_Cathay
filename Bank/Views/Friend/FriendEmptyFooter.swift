@@ -36,13 +36,13 @@ class FriendEmptyFooter: UICollectionReusableView {
     }
     
     func setupUI() {
-        backgroundColor = ColorEnum.white2.color
+        backgroundColor = ColorFactory.white2
         
         let ivEmpty = UIFactory.createImage(name: "imgFriendsEmpty")
-        let lbTitle = UIFactory.createLabel(size: 21*scale, text: "就從加好友開始吧：）".localized(), color: ColorEnum.greyishBrown.color, font: .PingFangTCMedium, textAlignment: .center)
-        let lbDes = UIFactory.createLabel(size: 14*scale, text: "與好友們一起用 KOKO 聊起來！\n還能互相收付款、發紅包喔：）".localized(), color: ColorEnum.greyishBrown.color, font: .PingFangTCMedium, textAlignment: .center)
+        let lbTitle = UIFactory.createLabel(size: 21*scale, text: "就從加好友開始吧：）".localized(), color: ColorFactory.greyishBrown, font: .PingFangTCMedium, textAlignment: .center)
+        let lbDes = UIFactory.createLabel(size: 14*scale, text: "與好友們一起用 KOKO 聊起來！\n還能互相收付款、發紅包喔：）".localized(), color: ColorFactory.greyishBrown, font: .PingFangTCMedium, textAlignment: .center)
         let vAddFriend = UIFactory.createView(color: .clear)
-        let btnAddFriend = UIFactory.createTextButton(size: 16*scale, text: "加好友".localized(), textColor: ColorEnum.white3.color, bgColor: .clear)
+        let btnAddFriend = UIFactory.createTextButton(size: 16*scale, text: "加好友".localized(), textColor: ColorFactory.white3, bgColor: .clear)
         let ivAddFriend = UIFactory.createImage(name: "icAddFriendWhite")
         let textSetKokoid = UIFactory.createTextView(size: 13*scale, text: "", color: .clear, font: .PingFangTCRegular)
         let btnSetKokoid = UIFactory.createImageButton(name: "")
@@ -66,8 +66,8 @@ class FriendEmptyFooter: UICollectionReusableView {
         addSubview(btnSetKokoid)
         
         lbDes.numberOfLines = 2
-        UIFactory.addGradient(view: vAddFriend, colorStart: ColorEnum.frogGreen.color, colorEnd: ColorEnum.booger.color, width: 192*scale, height: 40*scale, corner: 20*scale, isLeftToRight: true)
-        UIFactory.addShadow(view: vAddFriend, width: 0, height: 4*scale, shadowOpacity: 0.4, shadowColor: ColorEnum.appleGreen.color)
+        UIFactory.addGradient(view: vAddFriend, colorStart: ColorFactory.frogGreen, colorEnd: ColorFactory.booger, width: 192*scale, height: 40*scale, corner: 20*scale, isLeftToRight: true)
+        UIFactory.addShadow(view: vAddFriend, width: 0, height: 4*scale, shadowOpacity: 0.4, shadowColor: ColorFactory.appleGreen)
         btnSetKokoid.addTarget(self, action: #selector(btnSetKokoidTapped), for: .touchUpInside)
         textSetKokoid.attributedText = getSetKokoidLinkAttStr()
         
@@ -119,10 +119,10 @@ class FriendEmptyFooter: UICollectionReusableView {
         let attributedString = NSMutableAttributedString(string: fullString)
 
         let blackRange = (fullString as NSString).range(of: str1)
-        attributedString.addAttribute(.foregroundColor, value: ColorEnum.brownGrey.color, range: blackRange)
+        attributedString.addAttribute(.foregroundColor, value: ColorFactory.brownGrey, range: blackRange)
 
         let redRange = (fullString as NSString).range(of: str2)
-        attributedString.addAttribute(.foregroundColor, value: ColorEnum.hotpink.color, range: redRange)
+        attributedString.addAttribute(.foregroundColor, value: ColorFactory.hotpink, range: redRange)
         attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: redRange)
         return attributedString
     }

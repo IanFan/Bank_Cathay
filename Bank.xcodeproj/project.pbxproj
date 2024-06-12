@@ -98,10 +98,13 @@
 		A4D08E3A2C17005100F2CD57 /* UserViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E392C17005100F2CD57 /* UserViewModelTests.swift */; };
 		A4D08E3C2C174A1E00F2CD57 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */; };
 		A4D08E3F2C18108800F2CD57 /* FriendUserHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */; };
-		A4D08E412C1810BB00F2CD57 /* FriendInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */; };
+		A4D08E412C1810BB00F2CD57 /* FriendInviteListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E402C1810BB00F2CD57 /* FriendInviteListCell.swift */; };
 		A4D08E432C1810F000F2CD57 /* FriendTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E422C1810F000F2CD57 /* FriendTabHeader.swift */; };
 		A4D08E452C18119F00F2CD57 /* FriendEmptyFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */; };
 		A4D08E472C18369900F2CD57 /* FriendTabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E462C18369900F2CD57 /* FriendTabModel.swift */; };
+		A4D08E492C188C6800F2CD57 /* FriendListSearchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E482C188C6800F2CD57 /* FriendListSearchHeader.swift */; };
+		A4D08E4B2C1940F700F2CD57 /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E4A2C1940F700F2CD57 /* FriendListCell.swift */; };
+		A4D08E4D2C1956E400F2CD57 /* FriendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E4C2C1956E400F2CD57 /* FriendListModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,10 +212,13 @@
 		A4D08E392C17005100F2CD57 /* UserViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTests.swift; sourceTree = "<group>"; };
 		A4D08E3B2C174A1E00F2CD57 /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
 		A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendUserHeader.swift; sourceTree = "<group>"; };
-		A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteCell.swift; sourceTree = "<group>"; };
+		A4D08E402C1810BB00F2CD57 /* FriendInviteListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInviteListCell.swift; sourceTree = "<group>"; };
 		A4D08E422C1810F000F2CD57 /* FriendTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTabHeader.swift; sourceTree = "<group>"; };
 		A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendEmptyFooter.swift; sourceTree = "<group>"; };
 		A4D08E462C18369900F2CD57 /* FriendTabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTabModel.swift; sourceTree = "<group>"; };
+		A4D08E482C188C6800F2CD57 /* FriendListSearchHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListSearchHeader.swift; sourceTree = "<group>"; };
+		A4D08E4A2C1940F700F2CD57 /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
+		A4D08E4C2C1956E400F2CD57 /* FriendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +293,7 @@
 				A4D08E222C16D0D600F2CD57 /* UserModel.swift */,
 				A4D08E242C16D10900F2CD57 /* FriendModel.swift */,
 				A4D08E462C18369900F2CD57 /* FriendTabModel.swift */,
+				A4D08E4C2C1956E400F2CD57 /* FriendListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -530,9 +537,11 @@
 			isa = PBXGroup;
 			children = (
 				A4D08E3E2C18108800F2CD57 /* FriendUserHeader.swift */,
-				A4D08E402C1810BB00F2CD57 /* FriendInviteCell.swift */,
 				A4D08E422C1810F000F2CD57 /* FriendTabHeader.swift */,
+				A4D08E482C188C6800F2CD57 /* FriendListSearchHeader.swift */,
 				A4D08E442C18119F00F2CD57 /* FriendEmptyFooter.swift */,
+				A4D08E402C1810BB00F2CD57 /* FriendInviteListCell.swift */,
+				A4D08E4A2C1940F700F2CD57 /* FriendListCell.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -644,7 +653,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4D08E452C18119F00F2CD57 /* FriendEmptyFooter.swift in Sources */,
-				A4D08E412C1810BB00F2CD57 /* FriendInviteCell.swift in Sources */,
+				A4D08E412C1810BB00F2CD57 /* FriendInviteListCell.swift in Sources */,
 				A472862E2C140DC2003DDC64 /* FontFactory.swift in Sources */,
 				A4D08E122C15FC0E00F2CD57 /* DownloadImageViewModel.swift in Sources */,
 				A4D08DC12C146C2D00F2CD57 /* AmountModels.swift in Sources */,
@@ -662,6 +671,7 @@
 				A4D08DA42C143EF800F2CD57 /* MessageLoader.swift in Sources */,
 				A4D08E022C15C19100F2CD57 /* HomeAdView.swift in Sources */,
 				A47286512C143B58003DDC64 /* LoadFileStrategy.swift in Sources */,
+				A4D08E4B2C1940F700F2CD57 /* FriendListCell.swift in Sources */,
 				A4D08DBB2C146BE400F2CD57 /* AmountSavingLoader.swift in Sources */,
 				A4D08DBF2C146BFE00F2CD57 /* AdBannerLoader.swift in Sources */,
 				A47286392C1430AD003DDC64 /* JsonParserStrategy.swift in Sources */,
@@ -669,6 +679,7 @@
 				A4D08E2B2C16DAE800F2CD57 /* UserLoader.swift in Sources */,
 				A4D08DF62C1598E600F2CD57 /* HomeNavigationView.swift in Sources */,
 				A4D08E252C16D10900F2CD57 /* FriendModel.swift in Sources */,
+				A4D08E4D2C1956E400F2CD57 /* FriendListModel.swift in Sources */,
 				A4D08E3C2C174A1E00F2CD57 /* FriendViewController.swift in Sources */,
 				A4D08DD72C1479E300F2CD57 /* FavoriteViewModel.swift in Sources */,
 				A4D08E0E2C15F82200F2CD57 /* ImageLoader.swift in Sources */,
@@ -693,6 +704,7 @@
 				A472864E2C143A6F003DDC64 /* DataLoader.swift in Sources */,
 				A4D08DC92C14745000F2CD57 /* FavoriteModels.swift in Sources */,
 				A47286432C1435E4003DDC64 /* MessageViewModel.swift in Sources */,
+				A4D08E492C188C6800F2CD57 /* FriendListSearchHeader.swift in Sources */,
 				A4D08E292C16DA6100F2CD57 /* FriendParser.swift in Sources */,
 				A4D08DBD2C146BF000F2CD57 /* FavoriteLoader.swift in Sources */,
 				A47286532C143B84003DDC64 /* ParseStrategy.swift in Sources */,

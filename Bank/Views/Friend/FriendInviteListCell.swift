@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class FriendInviteCell: UICollectionViewCell {
-    static var cellID: String = "FriendInviteCell"
+class FriendInviteListCell: UICollectionViewCell {
+    static var cellID: String = "FriendInviteListCell"
     
     let scale: CGFloat = UIFactory.getScale()
     

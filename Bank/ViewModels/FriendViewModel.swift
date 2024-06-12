@@ -134,4 +134,12 @@ extension FriendViewModel {
     func getCompleteFriendCount() -> Int {
         return friends.filter { $0.status == 2 }.count
     }
+    
+    func getFriendListCount() -> Int {
+        return friends.count
+    }
+    
+    func getInviteFriendListCount() -> Int {
+        return inviteFriends.count
+    }
 }

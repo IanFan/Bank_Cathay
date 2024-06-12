@@ -53,7 +53,7 @@ class FriendTabHeader: UICollectionReusableView {
     }
     
     func setupUI() {
-        backgroundColor = ColorEnum.white2.color
+        backgroundColor = ColorFactory.white2
         
         let tabView1 = FriendTabView()
         tabView1.translatesAutoresizingMaskIntoConstraints = false
@@ -137,10 +137,10 @@ class FriendTabView: UIView {
     }
     
     private func setupViews() {
-        let lbTitle = UIFactory.createLabel(size: 13*scale, text: "", color: ColorEnum.greyishBrown.color, font: .PingFangTCMedium)
-        let vBadge = UIFactory.createView(color: ColorEnum.hotpink.color, corner: 9*scale)
-        let lbBadge = UIFactory.createLabel(size: 12*scale, text: "", color: ColorEnum.white3.color, font: .PingFangTCMedium, textAlignment: .center)
-        let vUnderLine = UIFactory.createView(color: ColorEnum.hotpink.color, corner: 2*scale)
+        let lbTitle = UIFactory.createLabel(size: 13*scale, text: "", color: ColorFactory.greyishBrown, font: .PingFangTCMedium)
+        let vBadge = UIFactory.createView(color: ColorFactory.hotpink, corner: 9*scale)
+        let lbBadge = UIFactory.createLabel(size: 12*scale, text: "", color: ColorFactory.white3, font: .PingFangTCMedium, textAlignment: .center)
+        let vUnderLine = UIFactory.createView(color: ColorFactory.hotpink, corner: 2*scale)
         let btn = UIFactory.createImageButton(name: "")
         
         addSubview(lbTitle)
@@ -165,6 +165,7 @@ class FriendTabView: UIView {
             vBadge.topAnchor.constraint(equalTo: topAnchor, constant: 3*scale),
             vBadge.leadingAnchor.constraint(equalTo: lbTitle.trailingAnchor, constant: 3*scale),
             vBadge.heightAnchor.constraint(equalToConstant: 18*scale),
+            vBadge.widthAnchor.constraint(greaterThanOrEqualToConstant: 18*scale),
             
             lbBadge.leadingAnchor.constraint(equalTo: vBadge.leadingAnchor, constant: 5*scale),
             lbBadge.trailingAnchor.constraint(equalTo: vBadge.trailingAnchor, constant: -5*scale),
