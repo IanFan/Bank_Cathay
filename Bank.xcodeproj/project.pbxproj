@@ -719,6 +719,7 @@
 				DEVELOPMENT_TEAM = S89Z92E5EE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Bank/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Cathay Bank";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -748,6 +749,7 @@
 				DEVELOPMENT_TEAM = S89Z92E5EE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Bank/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Cathay Bank";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
