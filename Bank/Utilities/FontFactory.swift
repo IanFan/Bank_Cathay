@@ -16,11 +16,6 @@ enum FontEnum: String {
     case HelveticaNeueMedium
     case HelveticaNeueBold
     case HelveticaNeueBoldItalic
-    case SFProTextBold
-    case SFProTextHeavy
-    case SFProTextMedium
-    case SFProTextRegular
-    case SFProTextSemibold
     
     case PingFangTCMedium
     case PingFangTCRegular
@@ -38,11 +33,6 @@ enum FontEnum: String {
         case .HelveticaNeueMedium: return "HelveticaNeue-Medium"
         case .HelveticaNeueBold: return "HelveticaNeue-Bold"
         case .HelveticaNeueBoldItalic: return "HelveticaNeue-BoldItalic"
-        case .SFProTextBold: return "SFProText-Bold"
-        case .SFProTextHeavy: return "SFProText-Heavy"
-        case .SFProTextMedium: return "SFProText-Medium"
-        case .SFProTextRegular: return "SFProText-Regular"
-        case .SFProTextSemibold: return "SFProText-Semibold"
             
         case .PingFangTCMedium: return "PingFangTC-Medium"
         case .PingFangTCRegular: return "PingFangTC-Regular"

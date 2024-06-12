@@ -32,7 +32,11 @@ final class UserViewModelTests: XCTestCase {
         viewModel.loadData()
         
         viewModel.successAction = {
-            let objs = self.viewModel.users
+            guard let viewModel = self.viewModel else {
+                XCTFail("\(#function) error")
+                return
+            }
+            let objs = viewModel.users
             XCTAssertTrue(objs.count > 0)
         }
         viewModel.failAction = {

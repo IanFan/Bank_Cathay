@@ -32,8 +32,12 @@ final class FriendViewModelTests: XCTestCase {
         viewModel.loadData(requestType: .FriendWithMixedSource)
         
         viewModel.successAction = {
-            let friends = self.viewModel.friends
-            let inviteFriends = self.viewModel.inviteFriends
+            guard let viewModel = self.viewModel else {
+                XCTFail("\(#function) error")
+                return
+            }
+            let friends = viewModel.inviteFriends
+            let inviteFriends = viewModel.inviteFriends
             XCTAssertTrue(friends.count > 0)
             XCTAssertTrue(inviteFriends.count > 0)
         }

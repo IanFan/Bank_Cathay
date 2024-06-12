@@ -90,19 +90,6 @@ struct ImageLoader: GenericSingleDataLoaderProtocol {
             return nil
         }
     }
-    
-    private func parse(params: DataParseParams) throws -> AdBannerResponseModel? {
-        switch params {
-        case let params as DataParseParams_adBanner:
-            let parser = ParseStrategy_adBanner()
-            guard let responseModel = parser.parseParams(params: params) else {
-                throw ParseError.parseError
-            }
-            return responseModel
-        default:
-            throw ParseError.parseError
-        }
-    }
 }
 
 extension ImageLoader {
