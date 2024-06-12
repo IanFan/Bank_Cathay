@@ -118,6 +118,9 @@ class FriendEmptyFooter: UICollectionReusableView {
         let fullString = "\(str1)\(str2)"
         let attributedString = NSMutableAttributedString(string: fullString)
 
+        let fullRange = (fullString as NSString).range(of: fullString)
+        attributedString.addAttribute(.font, value: UIFactory.getFont(font: FontEnum.PingFangTCRegular, size: 13*scale), range: fullRange)
+        
         let blackRange = (fullString as NSString).range(of: str1)
         attributedString.addAttribute(.foregroundColor, value: ColorFactory.brownGrey, range: blackRange)
 

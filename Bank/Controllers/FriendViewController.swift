@@ -86,6 +86,7 @@ class FriendViewController: UIViewController {
         cv.register(FriendListSearchHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FriendListSearchHeader.headerID)
         //register footers
         cv.register(FriendEmptyFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FriendEmptyFooter.headerID)
+        cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: UIFactory.isPad() ? 36*scale : 68*scale, right: 0)
         cv.delegate = self
         cv.dataSource = self
         cv.translatesAutoresizingMaskIntoConstraints = false
