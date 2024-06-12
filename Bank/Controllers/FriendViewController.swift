@@ -12,7 +12,8 @@ enum FriendSection: Int, CaseIterable {
     case User = 0
     case InviteFriendList = 1
     case FreindTab = 2
-    case FriendList = 3
+    case FreindSearch = 3
+    case FriendList = 4
 }
 
 class FriendViewController: UIViewController {
@@ -71,6 +72,8 @@ class FriendViewController: UIViewController {
         // collectionView
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
+//        flowLayout.sectionHeadersPinToVisibleBounds = true
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         // register cells
         cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
@@ -88,6 +91,11 @@ class FriendViewController: UIViewController {
         cv.backgroundColor = .clear
         view.addSubview(cv)
         self.cv = cv
+        
+        // tap gesture
+        cv.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cvTapped(sender:)))
+        cv.addGestureRecognizer(tapGesture)
         
         // pull refresh
         let refreshControl = UIRefreshControl()
@@ -109,6 +117,11 @@ class FriendViewController: UIViewController {
         self.userViewModel.loadData(isRefresh: isRefresh)
         self.friendViewModel.loadData(isRefresh: isRefresh, requestType: self.requestFriendType)
     }
+    
+    @objc func cvTapped(sender: UITapGestureRecognizer) {
+        print("cvTapped")
+        let _ = friendListSearchHeader?.resignFirstResponder()
+    }
 }
 
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -124,8 +137,10 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return 0
         case FriendSection.FreindTab.rawValue:
             return 0
+        case FriendSection.FreindSearch.rawValue:
+            return 0
         case FriendSection.FriendList.rawValue:
-            return friendViewModel.getFriendListCount()
+            return friendViewModel.getFriendListCount(checkSearch: true)
         default:
             return 0
         }
@@ -142,8 +157,10 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return cell
         case FriendSection.FreindTab.rawValue:
             return collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        case FriendSection.FreindSearch.rawValue:
+            return collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
         case FriendSection.FriendList.rawValue:
-            let obj = friendViewModel.friends[row]
+            let obj = friendViewModel.getFriendList(checkSearch: true)[row]
             let item = FriendListModel(name: obj.name, status: obj.status, isTop: obj.isTop, fid: obj.fid, updateDate: obj.updateDate, updateDateTime: obj.updateDateTime ?? 0, isTopInt: obj.isTopInt)
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendListCell.cellID, for: indexPath) as! FriendListCell
@@ -157,10 +174,11 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectSectionIndex = indexPath.section
         let selectIndex = indexPath.item
+        print("select:\(indexPath.section) \(indexPath.row)")
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? NotificationCell, let obj: MessageModel = cell.message else {
-            return
-        }
+//        guard let cell = collectionView.cellForItem(at: indexPath) as? NotificationCell, let obj: MessageModel = cell.message else {
+//            return
+//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -180,11 +198,13 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 header.delegate = self
                 self.friendTabHeader = header
                 return header
-            case FriendSection.FriendList.rawValue:
+            case FriendSection.FreindSearch.rawValue:
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendListSearchHeader.headerID, for: indexPath) as! FriendListSearchHeader
                 header.delegate = self
                 self.friendListSearchHeader = header
                 return header
+            case FriendSection.FriendList.rawValue:
+                return UICollectionReusableView()
             default:
                 return UICollectionReusableView()
             }
@@ -196,7 +216,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             case FriendSection.InviteFriendList.rawValue:
                 return UICollectionReusableView()
             case FriendSection.FreindTab.rawValue:
-                if friendViewModel.getFriendListCount() == 0 {
+                if friendViewModel.getFriendListCount(checkSearch: false) == 0 {
                     let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FriendEmptyFooter.headerID, for: indexPath) as! FriendEmptyFooter
                     footer.delegate = self
                     self.friendEmptyFooter = footer
@@ -204,6 +224,8 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 } else {
                     return UICollectionReusableView()
                 }
+            case FriendSection.FreindSearch.rawValue:
+                return UICollectionReusableView()
             case FriendSection.FriendList.rawValue:
                 return UICollectionReusableView()
             default:
@@ -223,11 +245,13 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         let width = collectionView.frame.width
         switch section {
         case FriendSection.User.rawValue:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
         case FriendSection.InviteFriendList.rawValue:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
         case FriendSection.FreindTab.rawValue:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
+        case FriendSection.FreindSearch.rawValue:
+            return CGSize.zero
         case FriendSection.FriendList.rawValue:
             return CGSize(width: width, height: 60*scale)
         default:
@@ -249,14 +273,16 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         case FriendSection.User.rawValue:
             return CGSize(width: width, height: 142*scale)
         case FriendSection.InviteFriendList.rawValue:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
         case FriendSection.FreindTab.rawValue:
             return CGSize(width: width, height: 38*scale)
-        case FriendSection.FriendList.rawValue:
-            return friendViewModel.getFriendListCount() > 0 ?
+        case FriendSection.FreindSearch.rawValue:
+            return friendViewModel.getFriendListCount(checkSearch: false) > 0 ?
             CGSize(width: width, height: 61*scale) : CGSize(width: width, height: 0)
+        case FriendSection.FriendList.rawValue:
+            return CGSize.zero
         default:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
         }
     }
     
@@ -264,26 +290,29 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         let width = collectionView.frame.width
         switch section {
         case FriendSection.User.rawValue:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
         case FriendSection.InviteFriendList.rawValue:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
         case FriendSection.FreindTab.rawValue:
-            return friendViewModel.getFriendListCount() > 0 ?
+            return friendViewModel.getFriendListCount(checkSearch: false) > 0 ?
             CGSize(width: width, height: 0) : CGSize(width: width, height: 460*scale)
+        case FriendSection.FreindSearch.rawValue:
+            return CGSize.zero
         case FriendSection.FriendList.rawValue:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
         default:
-            return CGSize(width: width, height: 0)
+            return CGSize.zero
         }
     }
 }
 
 extension FriendViewController {
     @objc func refreshCollectionView(_ sender: UIRefreshControl) {
-        self.userViewModel.loadData(isRefresh: true)
-        self.friendViewModel.loadData(isRefresh: true, requestType: requestFriendType)
-        
         sender.endRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.showRequestPopView(isRefresh: true)
+            self.cv?.setContentOffset(CGPoint.zero, animated: true)
+        }
     }
 }
 
@@ -333,7 +362,28 @@ extension FriendViewController: FriendTabHeaderDelegate {
 }
 
 extension FriendViewController: FriendListSearchHeaderDelegate {
+    func searchFriendTextDidChange(text: String) {
+        print("searchFriendTextDidChange :\(text)")
+        friendViewModel.updateSearchText(text: text)
+        
+        let isFirstResponder = friendListSearchHeader?.searchBar?.isFirstResponder ?? false
+        
+        cv.performBatchUpdates({
+            self.cv?.reloadSections(IndexSet(integer: FriendSection.FriendList.rawValue))
+        }, completion: { isFinished in
+//            self.friendListSearchHeader?.searchBar?.becomeFirstResponder()
+        })
+    }
     
+    func seearcFriendBeginEdit() {
+        print("seearcFriendBeginEdit")
+        
+        let section = FriendSection.FreindSearch.rawValue
+        let indexPath = IndexPath(item: 0, section: section)
+        if let attributes = cv.collectionViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: section)) {
+            cv.setContentOffset(CGPoint(x: 0, y: attributes.frame.origin.y - cv.contentInset.top), animated: true)
+        }
+    }
 }
 
 extension FriendViewController: FriendEmptybFooterDelegate {
@@ -341,25 +391,25 @@ extension FriendViewController: FriendEmptybFooterDelegate {
 }
 
 extension FriendViewController {
-    func showRequestPopView() {
+    func showRequestPopView(isRefresh: Bool = false) {
         let alertController = UIAlertController(title: "Request Options", message: "", preferredStyle: .alert)
         
         let action1 = UIAlertAction(title: "Without Friend", style: .default) { action in
             print("Button 1 tapped")
             self.requestFriendType = .NoFriend
-            self.requestAPIs(isRefresh: false)
+            self.requestAPIs(isRefresh: isRefresh)
         }
         alertController.addAction(action1)
         
         let action2 = UIAlertAction(title: "Friend List Only", style: .default) { action in
             self.requestFriendType = .FriendWithMixedSource
-            self.requestAPIs(isRefresh: false)
+            self.requestAPIs(isRefresh: isRefresh)
         }
         alertController.addAction(action2)
         
         let action3 = UIAlertAction(title: "Friend List & Invite List", style: .default) { action in
             self.requestFriendType = .FriendAndInvite
-            self.requestAPIs(isRefresh: false)
+            self.requestAPIs(isRefresh: isRefresh)
         }
         alertController.addAction(action3)
         

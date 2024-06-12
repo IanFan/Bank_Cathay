@@ -22,6 +22,7 @@ class FriendViewModel: NSObject {
     weak var delegate: FriendViewModelProtocol?
     var friends = [FriendModel]()
     var inviteFriends = [FriendModel]()
+    var searchText: String = ""
     
     var successAction: (() -> Void)?
     var failAction: (() -> Void)?
@@ -47,7 +48,7 @@ class FriendViewModel: NSObject {
             loadFriendData(fileName: fileName, isRefresh: isRefresh, completion: { result in
                 switch result {
                 case .success(let friendResponseModel):
-                    guard let objs = friendResponseModel.response, !objs.isEmpty else {
+                    guard let objs = friendResponseModel.response else {
                         loadError = LoadError.loadError
                         return
                     }
@@ -131,15 +132,39 @@ class FriendViewModel: NSObject {
 }
 
 extension FriendViewModel {
+    func getFriendList(checkSearch: Bool) -> [FriendModel] {
+        if checkSearch {
+            if searchText.isEmpty {
+                return friends
+            } else {
+                return friends.filter { $0.name.contains(searchText) }
+            }
+        } else {
+            return friends
+        }
+    }
+    
     func getCompleteFriendCount() -> Int {
         return friends.filter { $0.status == 2 }.count
     }
     
-    func getFriendListCount() -> Int {
-        return friends.count
+    func getFriendListCount(checkSearch: Bool) -> Int {
+        if checkSearch {
+            if searchText.isEmpty {
+                return friends.count
+            } else {
+                return friends.filter { $0.name.contains(searchText) }.count
+            }
+        } else {
+            return friends.count
+        }
     }
     
     func getInviteFriendListCount() -> Int {
         return inviteFriends.count
+    }
+    
+    func updateSearchText(text: String) {
+        self.searchText = text
     }
 }
