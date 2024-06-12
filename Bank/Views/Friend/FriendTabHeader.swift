@@ -158,11 +158,11 @@ class FriendTabView: UIView {
         btn.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            lbTitle.centerYAnchor.constraint(equalTo: centerYAnchor),
+            lbTitle.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 2*scale),
             lbTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2*scale),
             lbTitle.heightAnchor.constraint(equalToConstant: 18*scale),
             
-            vBadge.topAnchor.constraint(equalTo: topAnchor, constant: 3*scale),
+            vBadge.topAnchor.constraint(equalTo: lbTitle.topAnchor, constant: -7*scale),
             vBadge.leadingAnchor.constraint(equalTo: lbTitle.trailingAnchor, constant: 3*scale),
             vBadge.heightAnchor.constraint(equalToConstant: 18*scale),
             vBadge.widthAnchor.constraint(greaterThanOrEqualToConstant: 18*scale),

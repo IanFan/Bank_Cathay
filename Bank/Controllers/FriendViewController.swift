@@ -21,7 +21,7 @@ class FriendViewController: UIViewController {
     let friendViewModel = FriendViewModel()
     
     let scale: CGFloat = UIFactory.getScale()
-    var requestFriendType: RequestFriendType = .FriendWithMixedSource
+    var requestFriendType: RequestFriendType = .FriendAndInvite
     var cv: UICollectionView!
     var refreshControl: UIRefreshControl!
     var userHeader: FriendUserHeader?
@@ -29,6 +29,7 @@ class FriendViewController: UIViewController {
     var friendListSearchHeader: FriendListSearchHeader?
     var friendEmptyFooter: FriendEmptyFooter?
     let cellID = "cellID"
+    var isSpreadInviteList: Bool = false
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -92,10 +93,14 @@ class FriendViewController: UIViewController {
         view.addSubview(cv)
         self.cv = cv
         
-        // tap gesture
+        // gesture
         cv.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cvTapped(sender:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapped(sender:)))
         cv.addGestureRecognizer(tapGesture)
+        
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
+        pinchGesture.delegate = self
+        cv.addGestureRecognizer(pinchGesture)
         
         // pull refresh
         let refreshControl = UIRefreshControl()
@@ -117,10 +122,35 @@ class FriendViewController: UIViewController {
         self.userViewModel.loadData(isRefresh: isRefresh)
         self.friendViewModel.loadData(isRefresh: isRefresh, requestType: self.requestFriendType)
     }
-    
-    @objc func cvTapped(sender: UITapGestureRecognizer) {
+}
+
+extension FriendViewController: UIGestureRecognizerDelegate {
+    @objc func handleTapped(sender: UITapGestureRecognizer) {
         print("cvTapped")
         let _ = friendListSearchHeader?.resignFirstResponder()
+    }
+    
+    @objc func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            if gesture.scale > 1.0 {
+                isSpreadInviteList = true
+                if friendViewModel.getInviteFriendListCount() > 0 {
+                    cv?.reloadData()
+                }
+            } else {
+                isSpreadInviteList = false
+                if friendViewModel.getInviteFriendListCount() > 0 {
+                    cv?.reloadData()
+                }
+            }
+        case .changed:
+            break
+        case .ended, .cancelled:
+            break
+        default:
+            break
+        }
     }
 }
 
@@ -134,7 +164,12 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case FriendSection.User.rawValue:
             return 0
         case FriendSection.InviteFriendList.rawValue:
-            return 0
+            let count = friendViewModel.getInviteFriendListCount()
+            if count == 0 {
+                return 0
+            } else {
+                return isSpreadInviteList ? count : 1
+            }
         case FriendSection.FreindTab.rawValue:
             return 0
         case FriendSection.FreindSearch.rawValue:
@@ -154,6 +189,9 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
         case FriendSection.InviteFriendList.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendInviteListCell.cellID, for: indexPath) as! FriendInviteListCell
+            let obj = friendViewModel.getInviteFriendList()[row]
+            let item = FriendListModel(name: obj.name, status: obj.status, isTop: obj.isTop, fid: obj.fid, updateDate: obj.updateDate, updateDateTime: obj.updateDateTime ?? 0, isTopInt: obj.isTopInt)
+            cell.setupWithItem(item: item, isSpread: isSpreadInviteList)
             return cell
         case FriendSection.FreindTab.rawValue:
             return collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
@@ -247,7 +285,11 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         case FriendSection.User.rawValue:
             return CGSize.zero
         case FriendSection.InviteFriendList.rawValue:
-            return CGSize.zero
+            if isSpreadInviteList {
+                return CGSize(width: width, height: 80*scale)
+            } else {
+                return CGSize(width: width, height: 90*scale)
+            }
         case FriendSection.FreindTab.rawValue:
             return CGSize.zero
         case FriendSection.FreindSearch.rawValue:
@@ -275,7 +317,7 @@ extension FriendViewController: UICollectionViewDelegateFlowLayout {
         case FriendSection.InviteFriendList.rawValue:
             return CGSize.zero
         case FriendSection.FreindTab.rawValue:
-            return CGSize(width: width, height: 38*scale)
+            return CGSize(width: width, height: 44*scale)
         case FriendSection.FreindSearch.rawValue:
             return friendViewModel.getFriendListCount(checkSearch: false) > 0 ?
             CGSize(width: width, height: 61*scale) : CGSize(width: width, height: 0)
