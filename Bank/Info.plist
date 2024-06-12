@@ -3,13 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>UIAppFonts</key>
-	<array>
-		<string>SFProText-Semibold.ttf</string>
-		<string>SFProText-Heavy.ttf</string>
-		<string>SFProText-Medium.ttf</string>
-		<string>SFProText-Regular.ttf</string>
-		<string>SFProText-Bold.ttf</string>
-	</array>
+	<array/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

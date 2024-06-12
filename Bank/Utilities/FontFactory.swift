@@ -34,8 +34,8 @@ enum FontEnum: String {
         case .HelveticaNeueBold: return "HelveticaNeue-Bold"
         case .HelveticaNeueBoldItalic: return "HelveticaNeue-BoldItalic"
             
-        case .PingFangTCMedium: return "PingFangTC-Medium"
-        case .PingFangTCRegular: return "PingFangTC-Regular"
+        case .PingFangTCMedium: return "PingFang-TC-Medium"
+        case .PingFangTCRegular: return "PingFang-TC-Regular"
         }
     }
 }

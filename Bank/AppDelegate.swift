@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func readCustomFonts() {
-        let fontFileNames = ["SFProText-Regular","SFProText-Bold","SFProText-Heavy","SFProText-Medium","SFProText-Semibold"]
+        let fontFileNames = ["PingFang-Medium","PingFang-Regular"]
         let dic = UIFactory.getCustomFontNames(fontFileNames: fontFileNames)
         
         for fontFileName in dic.keys {

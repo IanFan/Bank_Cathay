@@ -38,11 +38,6 @@
 		A4D08E102C15F91700F2CD57 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E0F2C15F91700F2CD57 /* FileHelper.swift */; };
 		A4D08E122C15FC0E00F2CD57 /* DownloadImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E112C15FC0E00F2CD57 /* DownloadImageViewModel.swift */; };
 		A4D08E142C16009500F2CD57 /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E132C16009500F2CD57 /* ImageLoaderTests.swift */; };
-		A4D08E1A2C160FFE00F2CD57 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4D08E162C160FFE00F2CD57 /* SFProText-Regular.ttf */; };
-		A4D08E1B2C160FFE00F2CD57 /* SFProText-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4D08E172C160FFE00F2CD57 /* SFProText-Heavy.ttf */; };
-		A4D08E1C2C160FFE00F2CD57 /* SFProText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4D08E182C160FFE00F2CD57 /* SFProText-Medium.ttf */; };
-		A4D08E1F2C16101E00F2CD57 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4D08E1E2C16101E00F2CD57 /* SFProText-Bold.ttf */; };
-		A4D08E212C161E5E00F2CD57 /* SFProText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4D08E202C161E5E00F2CD57 /* SFProText-Semibold.ttf */; };
 		A4D08E232C16D0D600F2CD57 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E222C16D0D600F2CD57 /* UserModel.swift */; };
 		A4D08E252C16D10900F2CD57 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E242C16D10900F2CD57 /* FriendModel.swift */; };
 		A4D08E272C16DA5700F2CD57 /* UserParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D08E262C16DA5700F2CD57 /* UserParser.swift */; };
@@ -111,11 +106,6 @@
 		A4D08E0F2C15F91700F2CD57 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		A4D08E112C15FC0E00F2CD57 /* DownloadImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageViewModel.swift; sourceTree = "<group>"; };
 		A4D08E132C16009500F2CD57 /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
-		A4D08E162C160FFE00F2CD57 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
-		A4D08E172C160FFE00F2CD57 /* SFProText-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Heavy.ttf"; sourceTree = "<group>"; };
-		A4D08E182C160FFE00F2CD57 /* SFProText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Medium.ttf"; sourceTree = "<group>"; };
-		A4D08E1E2C16101E00F2CD57 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
-		A4D08E202C161E5E00F2CD57 /* SFProText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Semibold.ttf"; sourceTree = "<group>"; };
 		A4D08E222C16D0D600F2CD57 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		A4D08E242C16D10900F2CD57 /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
 		A4D08E262C16DA5700F2CD57 /* UserParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserParser.swift; sourceTree = "<group>"; };
@@ -384,11 +374,6 @@
 		A4D08E152C160FF000F2CD57 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				A4D08E162C160FFE00F2CD57 /* SFProText-Regular.ttf */,
-				A4D08E1E2C16101E00F2CD57 /* SFProText-Bold.ttf */,
-				A4D08E172C160FFE00F2CD57 /* SFProText-Heavy.ttf */,
-				A4D08E182C160FFE00F2CD57 /* SFProText-Medium.ttf */,
-				A4D08E202C161E5E00F2CD57 /* SFProText-Semibold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -496,13 +481,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4D08E1F2C16101E00F2CD57 /* SFProText-Bold.ttf in Resources */,
 				A47285C72C13FC2B003DDC64 /* Assets.xcassets in Resources */,
-				A4D08E1B2C160FFE00F2CD57 /* SFProText-Heavy.ttf in Resources */,
-				A4D08E1C2C160FFE00F2CD57 /* SFProText-Medium.ttf in Resources */,
 				A47285CA2C13FC2B003DDC64 /* Base in Resources */,
-				A4D08E212C161E5E00F2CD57 /* SFProText-Semibold.ttf in Resources */,
-				A4D08E1A2C160FFE00F2CD57 /* SFProText-Regular.ttf in Resources */,
 				A47285C52C13FC29003DDC64 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
