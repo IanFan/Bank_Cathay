@@ -77,7 +77,7 @@ class MainTabBarController: UITabBarController {
             view.backgroundColor = ColorFactory.white3
             vc.tabBarItem = createTabBarItem(tabEnum: tabEnum)
             
-            let lb = UIFactory.createLabel(size: 24*scale, text: "View Controller: \(tabEnum)", color: ColorFactory.brownGrey, font: .PingFangTCMedium)
+            let lb = UIFactory.createLabel(size: 22*scale, text: "View Controller: \(tabEnum)", color: ColorFactory.brownGrey, font: .PingFangTCMedium)
             vc.view.addSubview(lb)
             NSLayoutConstraint.activate([
                 lb.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),

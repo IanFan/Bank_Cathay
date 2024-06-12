@@ -21,7 +21,7 @@ class FriendViewController: UIViewController {
     let friendViewModel = FriendViewModel()
     
     let scale: CGFloat = UIFactory.getScale()
-    var requestFriendType: RequestFriendType = .FriendAndInvite
+    var requestFriendType: RequestFriendType = .NoFriend
     var cv: UICollectionView!
     var refreshControl: UIRefreshControl!
     var userHeader: FriendUserHeader?
@@ -62,8 +62,8 @@ class FriendViewController: UIViewController {
         setupUI()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.requestAPIs(isRefresh: false)
-//            self.showRequestPopView()
+//            self.requestAPIs(isRefresh: false)
+            self.showRequestPopView()
         }
     }
     
@@ -127,7 +127,6 @@ class FriendViewController: UIViewController {
 
 extension FriendViewController: UIGestureRecognizerDelegate {
     @objc func handleTapped(sender: UITapGestureRecognizer) {
-        print("cvTapped")
         let _ = friendListSearchHeader?.resignFirstResponder()
     }
     
@@ -406,7 +405,6 @@ extension FriendViewController: FriendTabHeaderDelegate {
 
 extension FriendViewController: FriendListSearchHeaderDelegate {
     func searchFriendTextDidChange(text: String) {
-        print("searchFriendTextDidChange :\(text)")
         friendViewModel.updateSearchText(text: text)
         
         let isFirstResponder = friendListSearchHeader?.searchBar?.isFirstResponder ?? false
@@ -419,10 +417,7 @@ extension FriendViewController: FriendListSearchHeaderDelegate {
     }
     
     func seearcFriendBeginEdit() {
-        print("seearcFriendBeginEdit")
-        
         let section = FriendSection.FreindSearch.rawValue
-        let indexPath = IndexPath(item: 0, section: section)
         if let attributes = cv.collectionViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: section)) {
             cv.setContentOffset(CGPoint(x: 0, y: attributes.frame.origin.y - cv.contentInset.top), animated: true)
         }

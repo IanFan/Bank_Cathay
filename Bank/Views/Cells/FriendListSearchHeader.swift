@@ -33,7 +33,6 @@ class FriendListSearchHeader: UICollectionReusableView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("prepareForReuse")
     }
     
     func setupUI() {
@@ -111,41 +110,37 @@ class FriendListSearchHeader: UICollectionReusableView {
 
 extension FriendListSearchHeader: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("Search text: \(searchText)")
+//        print("Search text: \(searchText)")
         
         self.delegate?.searchFriendTextDidChange(text: searchText)
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("Search button clicked")
+//        print("Search button clicked")
         searchBar.resignFirstResponder()
-        
-//        if let text = searchBar.text, !text.isEmpty {
-//            self.delegate?.searchFriendTextDidChange(text: text)
-//        }
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print("Cancel button clicked")
+//        print("Cancel button clicked")
         searchBar.resignFirstResponder()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("searchBarTextDidBeginEditing")
+//        print("searchBarTextDidBeginEditing")
     }
 
     // UISearchBarDelegate 方法 - 使用者結束編輯文字時調用
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("searchBarTextDidEndEditing")
+//        print("searchBarTextDidEndEditing")
     }
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        print("searchBarShouldEndEditing")
+//        print("searchBarShouldEndEditing")
         return true
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        print("searchBarShouldBeginEditing")
+//        print("searchBarShouldBeginEditing")
         self.delegate?.seearcFriendBeginEdit()
         return true
     }
