@@ -12,7 +12,6 @@
 		A47285C52C13FC29003DDC64 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A47285C42C13FC29003DDC64 /* Base */; };
 		A47285C72C13FC2B003DDC64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A47285C62C13FC2B003DDC64 /* Assets.xcassets */; };
 		A47285CA2C13FC2B003DDC64 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A47285C92C13FC2B003DDC64 /* Base */; };
-		A47286192C13FE52003DDC64 /* BankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47286182C13FE52003DDC64 /* BankTests.swift */; };
 		A47286222C1402AA003DDC64 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47286212C1402AA003DDC64 /* MainTabBarController.swift */; };
 		A47286242C1402E0003DDC64 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47286232C1402E0003DDC64 /* MainTabBar.swift */; };
 		A47286262C1405F7003DDC64 /* ExColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47286252C1405F7003DDC64 /* ExColor.swift */; };
@@ -80,7 +79,6 @@
 		A47285C92C13FC2B003DDC64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A47285CB2C13FC2B003DDC64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A47286162C13FE52003DDC64 /* BankTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BankTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A47286182C13FE52003DDC64 /* BankTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTests.swift; sourceTree = "<group>"; };
 		A47286212C1402AA003DDC64 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		A47286232C1402E0003DDC64 /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
 		A47286252C1405F7003DDC64 /* ExColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExColor.swift; sourceTree = "<group>"; };
@@ -239,7 +237,6 @@
 		A47286172C13FE52003DDC64 /* BankTests */ = {
 			isa = PBXGroup;
 			children = (
-				A47286182C13FE52003DDC64 /* BankTests.swift */,
 				A4D08E362C17003400F2CD57 /* ViewModels */,
 				A4D08DA52C144AFC00F2CD57 /* ServicesTests */,
 			);
@@ -556,7 +553,6 @@
 				A4D08E352C16FC6D00F2CD57 /* UserLoaderTests.swift in Sources */,
 				A4D08E142C16009500F2CD57 /* ImageLoaderTests.swift in Sources */,
 				A4D08E382C17004400F2CD57 /* FriendViewModelTests.swift in Sources */,
-				A47286192C13FE52003DDC64 /* BankTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
